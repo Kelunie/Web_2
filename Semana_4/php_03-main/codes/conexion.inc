@@ -1,9 +1,9 @@
 <?php
     //parametros de conexion (opcionales)
 	$servidor  = "127.0.0.1";
-    $basedatos = "Northwind";
+    $basedatos = "northwind";
     $usuario   = "root";
-    $contra    = "Utn123**";
+    $contra    = "culep1711";
 
     //suprime advertencias
     error_reporting(0);
