@@ -1,0 +1,55 @@
+* {
+	padding:0;
+	margin:0;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+	box-sizing: border-box;
+}
+
+body {
+	background-image: url("../images/lotc.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+
+	background-attachment: fixed;
+
+	font-family:helvetica, arial, sans-serif;
+	line-height:20px;
+}
+
+.chica{    
+    float: left;  
+    margin-left:5px;    
+    margin-top: 50%;
+}
+.contenedor {
+	width: 80%;
+	max-width:800px;
+	margin:auto;
+}
+
+article {
+	background:rgba(24,8,33,.9);
+	padding:20px;
+	margin:20px 0;
+	color:#fff;
+	box-shadow:0 5px 5px 3px rgba(0, 0, 0, 0.25);
+}
+
+article h2 {
+	color:#fff;
+}
+
+article hr {
+	background:#F64740;
+	height:5px;
+	border:none;
+}
+
+article p {
+	line-height: 25px;
+}
+
+article h2, article p, article hr {
+	margin-bottom: 20px;
+}

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<link type="text/css" rel="stylesheet" href="styles/formato.css">
+		<title>Aviones</title>
+		<script>
+			var pun1 = 0, pun2 = 0, pun3 = 0;
+			
+			function ini(){
+				document.getElementById('pun1').innerText = pun1;
+				document.getElementById('pun2').innerText = pun2;
+				document.getElementById('pun3').innerText = pun3;
+			}
+						
+			function destruir(valor){
+				switch(valor){
+					case 1:
+						document.getElementById('av1').src = 'images/explosion.gif';
+						setTimeout(function(){document.getElementById('av1').src = 'images/avion01.gif'}, 1000);
+						document.getElementById('pun1').innerText = ++pun1;																
+						break;
+					case 2:
+						document.getElementById('av2').src = 'images/explosion.gif'; 
+						setTimeout(function(){document.getElementById('av2').src = 'images/avion02.gif'}, 1200);
+						document.getElementById('pun2').innerText = ++pun2;	
+						break;
+					case 3:
+						document.getElementById('av3').src = 'images/explosion.gif';
+						setTimeout(function(){document.getElementById('av3').src = 'images/avion03.gif'}, 800);
+						document.getElementById('pun3').innerText = ++pun3;	
+						break;
+				}
+			}
+		</script>
+	</head>
+	
+	<body class="cuerpo" onload="ini()" >	
+		<img id="av1" src="images/avion01.gif" alt="" class="actVolar1" onclick="destruir(1)">	
+		<img id="av2" src="images/avion02.gif" alt="" class="actVolar2" onclick="destruir(2)">
+		<img id="av3" src="images/avion03.gif" alt="" class="actVolar3" onclick="destruir(3)">
+		<div class="marcador">
+			<table>
+				<caption><h2>Puntuación</h2></caption>				
+				<tr>
+					<td><h3>Hunter</h3></td><td style="text-align:right"><p id="pun1"></p></td>
+				</tr>
+				<tr>
+					<td><h3>B-52</h3></td><td style="text-align:right"><p id="pun2"></p></td>
+				</tr>
+				<tr>
+					<td><h3>Mig</h3></td><td style="text-align:right"><p id="pun3"></p></td>
+				</tr>
+			</table>
+		</div> 
+	</body>
+</html>

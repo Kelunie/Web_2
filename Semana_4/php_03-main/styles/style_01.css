@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+}
+
+html,
+body {
+    color: #011D42;
+    height: 100%;
+    line-height: 14px;
+
+    padding-top: 60px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.linea_sep {
+    margin-top: 10px;
+}
+
+.centrar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.etiqueta {
+    background-color: #F0C229;
+    border: 1px solid black;
+    display: block;
+    width: 100px;
+}
+
+.contenido {
+    min-height: calc(100% - 5rem);
+}
+
+.login {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    min-width: 380px;
+}
+
+.tarjeta {
+    border: none !important;
+}
+
+.pie {
+    border-top: 2px rgb(66, 66, 66) solid;
+    font-size: 12px;
+    height: 4.5rem;
+    padding-top: 10px;
+}
+
+.div_pi {
+    float: left;
+    text-align: left;
+    width: 33%;
+}
+
+.div_pc {
+    border-left: 1px rgb(66, 66, 66) solid;
+    border-right: 1px rgb(66, 66, 66) solid;
+    float: left;
+    font-weight: bold;
+    text-align: center;
+    width: 33%;
+}
+
+.div_pd {
+    float: left;
+    text-align: right;
+    ;
+    width: 33%;
+}

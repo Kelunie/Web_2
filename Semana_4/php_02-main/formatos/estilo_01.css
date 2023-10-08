@@ -1,0 +1,49 @@
+/* CSS Document */
+body{	
+	color: #011D42;
+	line-height: 14px;
+	
+	padding-top:5px;
+	padding-left:25px;
+	padding-right:25px;
+}
+
+.linea_sep{
+	margin-top: 10px;
+}
+
+.etiqueta{
+	background-color: #F0C229;
+	border: 1px solid black;
+	display: block;	
+	width: 100px;
+}
+
+.pie{
+	border-top:2px rgb(66, 66, 66) solid;
+	font-size: 12px;
+	height: 50px;
+	margin-top: 60px;
+	padding-top: 10px;
+}
+
+.div_pi{
+	float: left;
+	text-align: left;
+	width: 33%;
+}
+
+.div_pc{
+	border-left: 1px rgb(66, 66, 66) solid;
+	border-right: 1px rgb(66, 66, 66) solid;
+	float: left;
+	font-weight: bold;
+	text-align: center;
+	width: 33%;
+}
+
+.div_pd{
+	float: left;
+	text-align: right;;
+	width: 33%;
+}

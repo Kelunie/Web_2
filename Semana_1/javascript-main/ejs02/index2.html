@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso Remoto</title>
+    <link rel="stylesheet" href="styles/formatos.css" media="screen">
+</head>
+<body>
+    <h1>Captura de Datos</h1>
+    <form name="formita" enctype="application/x-www-form-urlencoded">
+        <fieldset>
+            <div class="">
+                <label>Nombre:</label>
+                <input type="text" id="txtNomb" maxlength="15" size="20" required autofocus>
+            </div>
+            <div class="">
+                <label>eMail:</label>
+                <input type="text" id="txtEmail" maxlength="30" size="35" required>
+            </div>
+            <div class="">
+                <label>Contraseña:</label>
+                <input type="password" id="txtContra" maxlength="10" size="15" required>
+            </div>
+        </fieldset>
+        <div>
+            <a href="#" id="btnGuardar">Guardar</a>
+            <a href="#" id="btnMostrar">Mostrar</a>
+        </div>
+    </form>
+
+    <div id="Datos"></div>
+
+    <script src="codes/codigo_05.js"> </script>
+</body>
+</html>
