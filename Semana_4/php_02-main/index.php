@@ -36,7 +36,11 @@
 								<fieldset>
                         			<div>
                             			<label>Archivo:</label>
-                                		<input type="file" name="txtArchi" />
+                                		<input type="file" name="txtArchi" /><br>
+										<label>Separador:</label><br>
+										<input type="text" name="c_s" id="c_s" placeholder="Caracter de separador"><br><br>
+										<label>¿El archivo tiene encabezado? </label><br>
+										<input class="checkbox" type="checkbox" name="tieneEncabezado" id="tieneEncabezdo">
                             		</div>
                                 </fieldset>
 							</div>

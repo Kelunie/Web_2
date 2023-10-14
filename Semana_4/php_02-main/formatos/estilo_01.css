@@ -47,3 +47,11 @@ body{
 	text-align: right;;
 	width: 33%;
 }
+
+#i_c::placeholder{
+	width: 200px;
+}
+
+#i_c{
+	width: 300px;
+}

@@ -1,6 +1,33 @@
 <?php
 
     $proceso = false;
+    $num_encabezados = 0; // almacena la cantidad de encabezados
+    $encabezados = array(); // almacena los encabezados
+
+    // Función para crear encabezados
+    function createHeaders($separator) {
+        // Crear encabezados basados en la cantidad de campos
+        // Puedes personalizar esta función según tus necesidades
+        return ['Cedula', 'Nombre', 'Sexo', 'Estado Civil', 'Fecha de nacimiento', 'Salario', 'Provincia', 'Partido Politico']; // Por ejemplo, 4 campos
+    }
+
+    function determinarTipoDato($valor) {
+        // Intenta determinar si es un número (entero o decimal)
+        if (is_numeric($valor)) {
+            return strpos($valor, '.') !== false ? 'Número Decimal' : 'Número Entero';
+        }
+    
+        // Intenta determinar si es una fecha
+        $formatoFecha = 'd/m/Y'; // Formato para dd/mm/yyyy
+        $fecha = DateTime::createFromFormat($formatoFecha, $valor);
+        if ($fecha && $fecha->format($formatoFecha) === $valor) {
+            return 'Fecha';
+        }
+    
+        // Si no se pudo determinar un tipo específico, lo consideramos como una cadena
+        return 'Cadena';
+    }
+
     if(isset($_POST["oc_Control"])){
 
         //procesa los datos generales del archivo recibido.
@@ -8,17 +35,37 @@
 		$tamanio = $_FILES["txtArchi"]["size"];
 		$tipo    = $_FILES["txtArchi"]["type"];
         $nombre  = $_FILES["txtArchi"]["name"];
+        
+        // Obtengo el separador
+        $caracterSeparador = $_POST["c_s"];
+        // valida el checkbox
+        $tieneEncabezado = isset($_POST["tieneEncabezado"]) && $_POST["tieneEncabezado"] == "on";
 
         //valida que
         if($tamanio > 0){
             //procesa el contenido del archivo recibido.
             $archi = fopen($archivo, "rb");
-            $encabezados = explode(';',fgets($archi));
+            
+            // lee la primera linea o utiliza el encabezados creados
+            if ($tieneEncabezado) {
+                $linea = fgets($archi);
+                $encabezados = explode($caracterSeparador, $linea);
+            } else {
+                $encabezados = createHeaders($caracterSeparador);
+            }
+            $num_encabezados = count($encabezados); // Obtener la cantidad de encabezados
 
             $contenido = array();
             $posi = 0;
+            // Leer desde la primera línea si hay encabezado, desde la segunda si no lo hay
+            $startLine = $tieneEncabezado ? 1 : 0;
+            fseek($archi, 0); // Reiniciar el puntero de archivo
+            for ($i = 0; $i < $startLine; $i++) {
+                fgets($archi);
+            }
+
             while($linea = fgets($archi)){
-                $contenido[$posi++] = explode(';',$linea);
+                $contenido[$posi++] = explode($caracterSeparador,$linea);
             }
 
             //cierra el archivo.
@@ -82,8 +129,8 @@
 
                     echo "  </tr><tr>";
 
-                    foreach($contenido[0] as $datos){
-                        echo "<td>".gettype($datos)."</td>";
+                    foreach($contenido[1] as $datos){
+                        echo "<td>".determinarTipoDato($datos)."</td>";
                     }
 
                     echo "  </tr>";
