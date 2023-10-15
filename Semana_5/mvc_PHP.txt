@@ -7,7 +7,7 @@ Periodo......: 1-2023
 Documento....: mvc_PHP.txt
 Objetivos....: Demostración de un proyecto PHP con el paradigma del modelo vista controlador.
 Profesor.....: Jorge Ruiz (york)
-Estudiante...:
+Estudiante...: Caleb Rodriguez Cordero
 ================================================================================================	
 	
 Paso 01 - Crear la carpeta del sitio y su estructura
