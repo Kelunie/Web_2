@@ -6797,4 +6797,22 @@ button.close {
     display: none !important;
   }
 }
+
+.styled-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.styled-table th, .styled-table td {
+  padding: 50px; /* Ajusta este valor según el espaciado que desees */
+  text-align: left;
+}
+
+.styled-table th {
+  background-color: #f2f2f2; /* Color de fondo para encabezados */
+}
+.table-container {
+  margin-bottom: 20px; /* Ajusta este valor según el espaciado deseado entre la tabla y otros elementos */
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
