@@ -26,7 +26,7 @@
             var data = google.visualization.arrayToDataTable(datos);
         
             var opciones = {
-                title: 'INTENSION DE VOTOS',
+                title: 'INTENCIÓN DE VOTOS',
                 hAxis: {title: 'MESES', titleTextStyle: {color: 'green'}},
                 vAxis: {title: 'Encuestados', titleTextStyle: {color: '#FF0000'}},
                 backgroundColor:'#ffffcc',
