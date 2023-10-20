@@ -90,9 +90,11 @@ if (isset($_POST["oc_Control"])) {
         }
     </script>
 </head>
-<body>
-    <header>
-        <?php include_once("segmentos/menu.inc"); ?>
+<body class="container">
+    <header class="row">
+        <?php
+			include_once("segmentos/menu.inc");
+		?>
     </header>
     <main class="row">
         <?php
