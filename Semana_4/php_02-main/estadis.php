@@ -56,6 +56,7 @@
 		<?php
 			include_once("segmentos/pie.inc");
 		?>
+		
 	</footer>
 
 	<!-- jQuery necesario para los efectos de bootstrap -->
