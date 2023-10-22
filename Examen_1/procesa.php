@@ -426,7 +426,7 @@
                     echo "</table>";
 
                     echo "<br>";
-                    echo "<h4>Datos.</h4>";
+                    echo "<h4>Datos de $nombre.</h4>";
                     echo "<table id='tblDatos' class='table table-bordered table-hover'>";
                     echo "<thead><tr>";
 
@@ -439,6 +439,31 @@
                     for ($i=0; $i < 100 ; $i++) {
                         echo "<tr>";
                         foreach($contenido[$i] as $datos){
+                            echo "<td>".$datos."</td>";
+                        }
+                        echo "</tr>";
+                    }
+
+                    echo "<tbody></table>";
+
+
+
+                    echo "</table>";
+
+                    echo "<br>";
+                    echo "<h4>Datos de $nombre2.</h4>";
+                    echo "<table id='tblDatos2' class='table table-bordered table-hover'>";
+                    echo "<thead><tr>";
+
+                    foreach($encabezados2 as $titulo){
+                        echo "<td>".$titulo."</td>";
+                    }
+
+                    echo "</tr></thead><tbody>";
+
+                    for ($i=0; $i < 100 ; $i++) {
+                        echo "<tr>";
+                        foreach($contenido2[$i] as $datos){
                             echo "<td>".$datos."</td>";
                         }
                         echo "</tr>";
@@ -621,6 +646,13 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#tblDatos').dataTable({
+                "language":{
+                    "url": "dataTables.Spanish.lang"
+                }
+            });
+        });
+        $(document).ready(function(){
+            $('#tblDatos2').dataTable({
                 "language":{
                     "url": "dataTables.Spanish.lang"
                 }
