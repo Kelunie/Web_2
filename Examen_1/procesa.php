@@ -102,6 +102,57 @@
                 }
             }
 
+            // datos para comparar tabla1
+            $fem1 = 0;
+            $mas1 = 0;
+            $Funion1 = 0;
+            $Fcasado1 = 0;
+            $Fdivorciado1 = 0;
+            $Fsoltero1 = 0;
+            $Fviudo1 = 0;
+            $Munion1 = 0;
+            $Mcasado1 = 0;
+            $Mdivorciado1 = 0;
+            $Msoltero1 = 0;
+            $Mviudo1 = 0;
+            for ($i = 0; $i < count($contenido); $i++){
+                if("F" == strval($contenido[$i][1])){
+                    $fem1++;
+                    if ($contenido[$i][2] == "U"){
+                        $Funion1++;
+                    }
+                    if ($contenido[$i][2] == "C"){
+                        $Fcasado1++;
+                    }
+                    if ($contenido[$i][2] == "D"){
+                        $Fdivorciado1++;
+                    }
+                    if ($contenido[$i][2] == "S"){
+                        $Fsoltero1++;
+                    }
+                    if ($contenido[$i][2] == "V"){
+                        $Fviudo1++;
+                    }
+                }else{
+                    $mas1++;
+                    if ($contenido[$i][2] == "U"){
+                        $Munion1++;
+                    }
+                    if ($contenido[$i][2] == "C"){
+                        $Mcasado1++;
+                    }
+                    if ($contenido[$i][2] == "D"){
+                        $Mdivorciado1++;
+                    }
+                    if ($contenido[$i][2] == "S"){
+                        $Msoltero1++;
+                    }
+                    if ($contenido[$i][2] == "V"){
+                        $Mviudo1++;
+                    }
+                }
+            }
+
             //cierra el archivo.
             fclose($archi);
 
@@ -160,6 +211,57 @@
                 }
             }
 
+            // datos para comparar tabla 2
+            $fem2 = 0;
+            $mas2 = 0;
+            $Funion2 = 0;
+            $Fcasado2 = 0;
+            $Fdivorciado2 = 0;
+            $Fsoltero2 = 0;
+            $Fviudo2 = 0;
+            $Munion2 = 0;
+            $Mcasado2 = 0;
+            $Mdivorciado2 = 0;
+            $Msoltero2 = 0;
+            $Mviudo2 = 0;
+            for ($i = 0; $i < count($contenido2); $i++){
+                if("F" == strval($contenido2[$i][1])){
+                    $fem2++;
+                    if ($contenido2[$i][2] == "U"){
+                        $Funion2++;
+                    }
+                    if ($contenido2[$i][2] == "C"){
+                        $Fcasado2++;
+                    }
+                    if ($contenido2[$i][2] == "D"){
+                        $Fdivorciado2++;
+                    }
+                    if ($contenido2[$i][2] == "S"){
+                        $Fsoltero2++;
+                    }
+                    if ($contenido2[$i][2] == "V"){
+                        $Fviudo2++;
+                    }
+                }else{
+                    $mas2++;
+                    if ($contenido2[$i][2] == "U"){
+                        $Munion2++;
+                    }
+                    if ($contenido2[$i][2] == "C"){
+                        $Mcasado2++;
+                    }
+                    if ($contenido2[$i][2] == "D"){
+                        $Mdivorciado2++;
+                    }
+                    if ($contenido2[$i][2] == "S"){
+                        $Msoltero2++;
+                    }
+                    if ($contenido2[$i][2] == "V"){
+                        $Mviudo2++;
+                    }
+                }
+            }
+
 
 
             //cierra el archivo.
@@ -214,7 +316,7 @@
 
 
                     echo "<br>";
-                    echo "<h4>Estructura.</h4>";
+                    echo "<h4>Estructura: ".$nombre."</h4>";
                     echo "<table class='table table-bordered table-hover'>";
                     echo "<tr>";
                         echo "<td> Campo</td>";
@@ -266,8 +368,8 @@
                             echo "  </tr>";
                             $contador++;
                         }
-                    
-                    echo "</table>";
+
+                    echo "</table><h4>Estructura: ".$nombre2."</h4>";
 
                     echo "<table class='table table-bordered table-hover'>";
                     echo "<tr>";
@@ -345,8 +447,165 @@
                     echo "<tbody></table>";
 
                 }//fin del else (solo si el archivo fue procesado)
+                echo "<br>";
+                echo "<br>";
+                echo "<br>";
+                echo "<div>";
+                echo "<tr>";
+                echo "<table id='tblDatos' class='table table-bordered table-hover'><h4 style  = 'color: black; font-weight: bold;'> datos absolutos obtenidos del archivo $nombre</h4>";
+                echo "<td colspan='7' style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Distribución Sexo, Estado Civil</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Sexo</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Absoluto</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Union Libre</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casada</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciada</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solera</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viuda</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Femenino</td>";
+                echo "<td style='text-align: center; color: black;'>$fem1</td>";
+                echo "<td style='text-align: center; color: black;'>$Funion1</td>";
+                echo "<td style='text-align: center; color: black;'>$Fcasado1</td>";
+                echo "<td style='text-align: center; color: black;'>$Fdivorciado1</td>";
+                echo "<td style='text-align: center; color: black;'>$Fsoltero1</td>";
+                echo "<td style='text-align: center; color: black;'>$Fviudo1</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Masculino</td>";
+                echo "<td style='text-align: center; color: black;'>$mas1</td>";
+                echo "<td style='text-align: center; color: black;'>$Munion1</td>";
+                echo "<td style='text-align: center; color: black;'>$Mcasado1</td>";
+                echo "<td style='text-align: center; color: black;'>$Mdivorciado1</td>";
+                echo "<td style='text-align: center; color: black;'>$Msoltero1</td>";
+                echo "<td style='text-align: center; color: black;'>$Mviudo1</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Observaciones</td>";
+                echo "<td style='text-align: center; color: black;'>".$fem1 + $mas1."</td>";
+                echo "</tr>";
+
+                // segundo grafico tabla 1
+                echo "<div>";
+                echo "<tr>";
+                echo "<table id='tblDatos' class='table table-bordered table-hover'><h4 style  = 'color: black; font-weight: bold;'> datos relativos obtenidos del archivo $nombre</h4>";
+                echo "<td colspan='7' style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Distribución Sexo, Estado Civil</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Sexo</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Absoluto</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Union Libre</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casada</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciada</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solera</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viuda</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Femenino</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($fem1 /($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Funion1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Fcasado1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Fdivorciado1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Fsoltero1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Fviudo1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Masculino</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($mas1 /($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Munion1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Mcasado1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Mdivorciado1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Msoltero1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Mviudo1/($fem1 + $mas1))/($fem1/($fem1 + $mas1)) * 100, 2) ." %</td>";
+                echo "</tr>";
+
+
+                echo "</table>";
+                echo"</div>";
+
+                // segundo dos cuadros de comparacion
+                echo "<br>";
+                echo "<br>";
+                echo "<br>";
+                echo "<div>";
+                echo "<tr>";
+                echo "<table id='tblDatos' class='table table-bordered table-hover'><h4 style  = 'color: black; font-weight: bold;'> datos absolutos obtenidos del archivo $nombre2</h4>";
+                echo "<td colspan='7' style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Distribución Sexo, Estado Civil</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Sexo</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Absoluto</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Union Libre</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casada</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciada</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solera</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viuda</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Femenino</td>";
+                echo "<td style='text-align: center; color: black;'>$fem2</td>";
+                echo "<td style='text-align: center; color: black;'>$Funion2</td>";
+                echo "<td style='text-align: center; color: black;'>$Fcasado2</td>";
+                echo "<td style='text-align: center; color: black;'>$Fdivorciado2</td>";
+                echo "<td style='text-align: center; color: black;'>$Fsoltero2</td>";
+                echo "<td style='text-align: center; color: black;'>$Fviudo2</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Masculino</td>";
+                echo "<td style='text-align: center; color: black;'>$mas2</td>";
+                echo "<td style='text-align: center; color: black;'>$Munion2</td>";
+                echo "<td style='text-align: center; color: black;'>$Mcasado2</td>";
+                echo "<td style='text-align: center; color: black;'>$Mdivorciado2</td>";
+                echo "<td style='text-align: center; color: black;'>$Msoltero2</td>";
+                echo "<td style='text-align: center; color: black;'>$Mviudo2</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Observaciones</td>";
+                echo "<td style='text-align: center; color: black;'>".$fem2 + $mas2."</td>";
+                echo "</tr>";
+
+                // segundo grafico tabla 2
+                echo "<div>";
+                echo "<tr>";
+                echo "<table id='tblDatos' class='table table-bordered table-hover'><h4 style  = 'color: black; font-weight: bold;'> datos relativos obtenidos del archivo $nombre2</h4>";
+                echo "<td colspan='7' style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Distribución Sexo, Estado Civil</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Sexo</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Absoluto</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Union Libre</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casada</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciada</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solera</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viuda</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Femenino</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($fem2 /($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Funion2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Fcasado2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Fdivorciado2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Fsoltero2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Fviudo2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "</tr>";
+                echo "<tr>";
+                echo "<td style='text-align: center; color: black; font-weight: bold;'>Masculino</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($mas2 /($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Munion2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Mcasado2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Mdivorciado2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Msoltero2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "<td style='text-align: center; color: black;'>".number_format(($Mviudo2/($fem2 + $mas2))/($fem2/($fem2 + $mas2)) * 100, 2) ." %</td>";
+                echo "</tr>";
+
+
+                echo "</table>";
+                echo"</div>";
             ?>
 		</div>
+        <div></div>
 	</main>
 
 	<footer class="row pie">
