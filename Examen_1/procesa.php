@@ -152,6 +152,22 @@
                     }
                 }
             }
+            $datosgraficoF = array(
+                array('Estado Civil', 'Cantidad'),
+                array('Union Libre', $Funion1),
+                array('Casad@', $Fcasado1),
+                array('Divorciad@', $Fdivorciado1),
+                array('Solter@', $Fsoltero1),
+                array('Viud@', $Fviudo1),
+            );
+            $datosgraficoM = array(
+                array('Estado Civil', 'Cantidad'),
+                array('Union Libre', $Munion1),
+                array('Casad@', $Mcasado1),
+                array('Divorciad@', $Mdivorciado1),
+                array('Solter@', $Msoltero1),
+                array('Viud@', $Mviudo1),
+            );
 
             //cierra el archivo.
             fclose($archi);
@@ -262,6 +278,23 @@
                 }
             }
 
+            $datosgraficoF2 = array(
+                array('Estado Civil', 'Cantidad'),
+                array('Union Libre', $Funion2),
+                array('Casad@', $Fcasado2),
+                array('Divorciad@', $Fdivorciado2),
+                array('Solter@', $Fsoltero2),
+                array('Viud@', $Fviudo2),
+            );
+            $datosgraficoM2 = array(
+                array('Estado Civil', 'Cantidad'),
+                array('Union Libre', $Munion2),
+                array('Casad@', $Mcasado2),
+                array('Divorciad@', $Mdivorciado2),
+                array('Solter@', $Msoltero2),
+                array('Viud@', $Mviudo2),
+            );
+
 
 
             //cierra el archivo.
@@ -279,6 +312,10 @@
 		include_once("segmentos/encabe.inc");
 	?>
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="formatos/font/mistilo.css"/>
+    
+    
     <title>Proceso de datos</title>
 </head>
 <body class="container">
@@ -484,10 +521,10 @@
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Sexo</td>";
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Absoluto</td>";
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Union Libre</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casada</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciada</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solera</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viuda</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casad@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciad@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solter@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viud@</td>";
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td style='text-align: center; color: black; font-weight: bold;'>Femenino</td>";
@@ -520,12 +557,12 @@
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Sexo</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Absoluto</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Relativo</td>";
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Union Libre</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casada</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciada</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solera</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viuda</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casad@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciad@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Soler@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viud@</td>";
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td style='text-align: center; color: black; font-weight: bold;'>Femenino</td>";
@@ -563,10 +600,10 @@
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Sexo</td>";
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Absoluto</td>";
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Union Libre</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casada</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciada</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solera</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viuda</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casad@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciad@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Soler@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viud@</td>";
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td style='text-align: center; color: black; font-weight: bold;'>Femenino</td>";
@@ -599,12 +636,12 @@
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Sexo</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Absoluto</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Relativos</td>";
                 echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Union Libre</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casada</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciada</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Solera</td>";
-                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viuda</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Casad@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Divorciad@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Soler@</td>";
+                echo "<td style='text-align: center; background-color: beige; color: black; font-weight: bold;'>Viud@</td>";
                 echo "</tr>";
                 echo "<tr>";
                 echo "<td style='text-align: center; color: black; font-weight: bold;'>Femenino</td>";
@@ -627,10 +664,52 @@
 
 
                 echo "</table>";
+                echo "<br>";
+                echo "<br>";
+                echo "<br>";
+                echo"<div>";
+                echo '
+                <div>
+                <h4>Info obtenido de '.$nombre.'</h4>
+                <div id="chart_divF1" class="col-md-6"></div>
+                <div id="chart_divM1" class="col-md-6"></div>
+                </div>
+                ';
+
+                echo "<br>";
+                echo "<br>";
+                echo "<br>";
+                echo '
+                <div>
+                <h4>Info obtenido de '.$nombre.'</h4>
+                <div id="chart_divF2" class="col-md-6"></div>
+                <div id="chart_divM2" class="col-md-6"></div>
+                </div>
+                ';
                 echo"</div>";
-            ?>
+            ?> 
+                
+        
 		</div>
-        <div></div>
+            &nbsp;
+
+        <div class= "linea_sep acomodarestilo">
+            <h3 class= "acomodarestilo" style= "color:black">Criterio del grupo:</h3>
+            <h3 class= "acomodarestilo" style= "color: black">
+                En el apartado de los gráficos, se analiza diferentes conceptos. Lo primero a 
+                evaluar es el estado civil presente en los sexos 'Masculino' y 'Femenino'. 
+                Para esto se toma en cuenta los datos de dichas personas, capturados en el excel de 
+                'CensoNacional_entrenamiento' y 'CensoNacional_prueba', estos documentos permiten saber el estado 
+                civil actual, además de su sexo respectivo.
+                En los gráficos se puede notar los diferentes valores porcentuales tanto para hombres 
+                como para mujeres, esto recae debido a la información almacenada en dichos documentos. 
+                En el documentos de 'CensoNacional_entrenamiento', son datos
+                poco creíbles o ficticios, ya que no son tomados de una persona como tal. Entonces, 
+                esto genera cierta diferencia en el momento que se muestra el gráfico del archivo 
+                'CensoNacional_prueba', ya que estos sí son datos reales, existentes, 
+                por lo que hay ciertos cambios en los valores porcentuales.
+            </h3>
+        </div>
 	</main>
 
 	<footer class="row pie">
@@ -659,6 +738,62 @@
             });
         });
     </script>
+    <script>
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChartF1);
+                google.charts.setOnLoadCallback(drawChartM1);
+                google.charts.setOnLoadCallback(drawChartF2);
+                google.charts.setOnLoadCallback(drawChartM2);
+                function drawChartF1(){
+                    var data = google.visualization.arrayToDataTable(<?php echo json_encode($datosgraficoF); ?>);
+                
+                var options = {
+                    width: 700,
+                    height: 590,
+                    title: 'Distribución de género Femenino por Estado Civil',
+                    pieHole: 0, // Agujero en el medio (0 para un círculo completo)
+                  };
+                  var chart = new google.visualization.PieChart(document.getElementById('chart_divF1'));
+                  chart.draw(data, options);
+                }
+                function drawChartM1(){
+                    var data = google.visualization.arrayToDataTable(<?php echo json_encode($datosgraficoM); ?>);
+                
+                var options = {
+                    width: 700,
+                    height: 590,
+                    title: 'Distribución de género Masculino por Estado Civil',
+                    pieHole: 0, // Agujero en el medio (0 para un círculo completo)
+                  };
+                  var chart = new google.visualization.PieChart(document.getElementById('chart_divM1'));
+                  chart.draw(data, options);
+                }
+
+                function drawChartF2(){
+                    var data = google.visualization.arrayToDataTable(<?php echo json_encode($datosgraficoF2); ?>);
+                
+                var options = {
+                    width: 700,
+                    height: 590,
+                    title: 'Distribución de género Femenino por Estado Civil',
+                    pieHole: 0, // Agujero en el medio (0 para un círculo completo)
+                  };
+                  var chart = new google.visualization.PieChart(document.getElementById('chart_divF2'));
+                  chart.draw(data, options);
+                }
+                function drawChartM2(){
+                    var data = google.visualization.arrayToDataTable(<?php echo json_encode($datosgraficoM2); ?>);
+                
+                var options = {
+                    width: 700,
+                    height: 590,
+                    title: 'Distribución de género Masculino por Estado Civil',
+                    pieHole: 0, // Agujero en el medio (0 para un círculo completo)
+                  };
+                  var chart = new google.visualization.PieChart(document.getElementById('chart_divM2'));
+                  chart.draw(data, options);
+                }
+                  </script>
 </body>
 </html>
 
