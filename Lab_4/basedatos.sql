@@ -38,4 +38,4 @@ VALUES (1, '2023-10-21 10:00:00', 'loid mejor personaje', 'Este es el contenido 
 INSERT INTO blogs (usuario, fecha, titulo, contenido, imagen)
 VALUES (2, '2023-10-21 11:00:00', 'Gobling slayer', 'Uno de los mejores animes de temporada', NULL);
 
-select * from usuarios;
+select * from blogs where usuario = 2;

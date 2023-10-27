@@ -1,28 +1,17 @@
 <?php
+// creamos las variables para buscar la información (ya que $_SESSION no trae el id, lo haremos con una función)
+$user = $this->userModel->getUserInfo($_SESSION['usuario']);
+$id = $user->id;
+$nam = $user->nombre;
 
-// Verificar si el usuario ha iniciado sesión
-if (isLoggedIn()) {
-    $user = new User();
-    $user_id = $_SESSION['user_id']; // Suponiendo que $_SESSION['user_id'] contiene el ID del usuario autenticado
-
-    // Obtener la información del usuario actualmente autenticado
-    $userInfo = $user->getUserInfo($user_id);
-
-    // Obtener los posts del usuario actual
-    $posts = $user->getUserPosts($user_id);
-
-    // Resto del código de la página de perfil
-} else {
-    // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-    header('Location: login.php');
-    exit();
-}
+// ahora hacemos la consulta de la tabla de blogs
+$userBlog = $this->userModel->getUserPost($id);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php
+    <?php
     require_once(appRoot . '/views/includes/enca.php');
     ?>
     <title><?php echo siteName; ?></title>
@@ -32,33 +21,43 @@ if (isLoggedIn()) {
     <header class="col-12">
         <?php
         require_once(appRoot . '/views/includes/menu.php');
-        ?>        
+        ?>
     </header>
     <main class="col-12 linea_sep">
-        <div class="container">
-            <h1 class="mt-4">Perfil de Usuario: <?php echo $userInfo->nombre; ?></h1>
+        <?php
+        if (isLoggedIn()) {
+            echo '<div class="container">';
+            echo '<h1 class="mt-4">Posts de ' . $nam . '</h1>';
+            echo '<a href="crear_post.php" class="btn btn-primary">Agregar Post</a>';
 
-            <?php if (empty($posts)) : ?>
-                <p>No hay posts disponibles para este usuario.</p>
-            <?php else : ?>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Título</th>
-                            <th>Contenido</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($posts as $post) : ?>
-                            <tr>
-                                <td><?php echo $post->titulo; ?></td>
-                                <td><?php echo $post->contenido; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-        </div>
+            if (empty($userBlog)) {
+                echo '<p>No hay posts disponibles.</p>';
+            } else {
+                echo '<table class="table table-bordered">';
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>Título</th>';
+                echo '<th>Contenido</th>';
+                echo '<th>Imagen</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
+                foreach ($userBlog as $post) {
+                    echo '<tr>';
+                    echo '<td><a href="editar_post.php?id=' . $post->id . '">' . $post->titulo . '</a></td>';
+                    echo '<td>' . $post->contenido . '</td>';
+                    echo '<td>' . $post->imagen . '</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody>';
+                echo '</table>';
+            }
+
+            echo '</div>';
+        } else {
+            echo "Por favor autentíquese antes de continuar.";
+        }
+        ?>
     </main>
     <footer class="col-12 linea_sep">
         <?php

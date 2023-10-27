@@ -59,17 +59,19 @@
         return $posts;
     }
     // Obtener los posts de un usuario por su ID
-    public function getUserPosts($user_id) {
-        $this->db->query('SELECT id, titulo, contenido, imagen FROM blogs WHERE usuario = :user_id');
-        $this->db->bind(':user_id', $user_id);
-        $posts = $this->db->resultSet();
-        return $posts;
+    public function getUserInfo($nombre) {
+        $this->db->query('SELECT * FROM usuarios WHERE nombre = :nomb');
+        $this->db->bind(':nomb', $nombre);
+        $in = $this->db->singleRow();
+        return $in;
     }
-    public function getUserInfo($user_id) {
-        $this->db->query('SELECT * FROM usuarios WHERE id = :user_id');
-        $this->db->bind(':user_id', $user_id);
-        return $this->db->singleRow();
+    public function getUserPost($id) {
+        $this->db->query('SELECT * FROM blogs WHERE usuario = :id');
+        $this->db->bind(':id', $id);
+        $post = $this->db->resultSet();
+        return $post;
     }
+    
 
 	}
 ?>

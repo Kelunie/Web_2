@@ -128,6 +128,7 @@
 					session_start();
 					$_SESSION['autenticado'] = 'Si';
 					$_SESSION['usuario'] = $user->nombre;
+					$_SESSION['id'] = $user->id;
 					header('location: ' . urlRoot . '/pages/index');
 				}
                 public function logout(){
