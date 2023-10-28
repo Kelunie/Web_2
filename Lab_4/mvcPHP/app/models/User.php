@@ -71,6 +71,37 @@
         $post = $this->db->resultSet();
         return $post;
     }
+    public function getPostById($post_id) {
+        // Preparar la consulta SQL para seleccionar un post por su ID
+        $this->db->query('SELECT * FROM blogs WHERE id = :post_id');
+        
+        // Enlazar el parámetro :post_id con el valor proporcionado
+        $this->db->bind(':post_id', $post_id);
+        
+        // Ejecutar la consulta
+        $post = $this->db->singleRow();
+        
+        return $post;
+    }
+    
+    public function updatePostById($post_id, $titulo, $contenido, $imagen) {
+        // Preparar la consulta SQL para actualizar un post por su ID
+        $this->db->query('UPDATE blogs SET titulo = :titulo, contenido = :contenido, imagen = :imagen WHERE id = :post_id');
+        
+        // Enlazar los parámetros con los valores proporcionados
+        $this->db->bind(':post_id', $post_id);
+        $this->db->bind(':titulo', $titulo);
+        $this->db->bind(':contenido', $contenido);
+        $this->db->bind(':imagen', $imagen);
+        
+        // Ejecutar la consulta
+        if ($this->db->execute()) {
+            return true; // La actualización fue exitosa
+        } else {
+            return false; // La actualización falló
+        }
+    }
+    
     
 
 	}

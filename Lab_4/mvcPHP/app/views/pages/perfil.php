@@ -1,13 +1,3 @@
-<?php
-// creamos las variables para buscar la información (ya que $_SESSION no trae el id, lo haremos con una función)
-$user = $this->userModel->getUserInfo($_SESSION['usuario']);
-$id = $user->id;
-$nam = $user->nombre;
-
-// ahora hacemos la consulta de la tabla de blogs
-$userBlog = $this->userModel->getUserPost($id);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,10 +17,10 @@ $userBlog = $this->userModel->getUserPost($id);
         <?php
         if (isLoggedIn()) {
             echo '<div class="container">';
-            echo '<h1 class="mt-4">Posts de ' . $nam . '</h1>';
+            echo '<h1 class="mt-4">Posts de ' . $data['nam'] . '</h1>';
             echo '<a href="crear_post.php" class="btn btn-primary">Agregar Post</a>';
 
-            if (empty($userBlog)) {
+            if (empty($data['userBlog'])) {
                 echo '<p>No hay posts disponibles.</p>';
             } else {
                 echo '<table class="table table-bordered">';
@@ -42,11 +32,12 @@ $userBlog = $this->userModel->getUserPost($id);
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
-                foreach ($userBlog as $post) {
+                foreach ($data['userBlog'] as $post) {
                     echo '<tr>';
-                    echo '<td><a href="editar_post.php?id=' . $post->id . '">' . $post->titulo . '</a></td>';
+                    echo '<td><a class="" href="'.urlRoot.'/pages/editar?id='.$post->id.'">'.$post->titulo.'</a></td>';
                     echo '<td>' . $post->contenido . '</td>';
-                    echo '<td>' . $post->imagen . '</td>';
+                    echo '<td><img src="data:image/jpeg;base64,' . base64_encode($post->imagen) . '" alt="Imagen" width="200" height="150"></td>';
+
                     echo '</tr>';
                 }
                 echo '</tbody>';
