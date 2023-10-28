@@ -90,6 +90,22 @@
             }
             echo '<div class="container">';
             echo '<h1 class="mt-4">Post '.$data['titulo'].'</h1>';
+            echo '<table class="table table-bordered">';
+                echo '<thead>';
+                echo '<tr>';
+                echo '<th>Título</th>';
+                echo '<th>Contenido</th>';
+                echo '<th>Imagen</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
+                echo '<tr>';
+                echo '<td>' . $data['titulo']. '</td>';
+                echo '<td>' . $data['contenido']. '</td>';
+                echo '<td><img src="data:image/jpeg;base64,' . base64_encode($data['imagen']) . '" alt="Imagen" width="200" height="150"></td>';
+                echo'</tr>';
+                echo '</tbody>';
+                echo '</table>';
             
         } else {
             echo "Por favor autentíquese antes de continuar.";
