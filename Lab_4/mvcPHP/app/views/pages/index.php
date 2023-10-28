@@ -42,7 +42,7 @@ $posts = $user->getPosts();
                     echo '<tr>';
                     echo '<td>' . $post->titulo . '</td>';
                     echo '<td>' . $post->contenido . '</td>';
-                    echo '<td>' . $post->imagen . '</td>';
+                    echo '<td><img src="data:image/jpeg;base64,' . base64_encode($post->imagen) . '" alt="Imagen" width="200" height="150"></td>';
                     echo '</tr>';
                 }
                 echo '</tbody>';
