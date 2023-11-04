@@ -3,7 +3,7 @@
 	$servidor  = "127.0.0.1";
     $basedatos = "agenda";
     $usuario   = "root";
-    $contra    = "parda99*";
+    $contra    = "culep1711";
 
     //suprime advertencias
     error_reporting(0);
