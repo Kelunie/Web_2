@@ -1,0 +1,48 @@
+body{	
+    color: #011D42;
+    
+    font-family: 'Newsreader', serif;
+    
+    padding-top:5px;
+    padding-left:25px;
+    padding-right:25px;
+}
+
+.centrar_login{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.div_pi{
+    float: left;
+    font-size: 13px;
+    text-align: left;	
+}
+
+.div_pc{
+    border-left: 1px rgb(66, 66, 66) solid;
+    border-right: 1px rgb(66, 66, 66) solid;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;	
+}
+
+.div_pd{
+    float: left;
+    font-size: 10px;
+    text-align: right;	
+}
+
+.letra_menu{
+    font-weight: bold;
+}
+
+.linea_sep{
+    margin-top: 36px;
+    margin: 0 auto;
+}
+.centrar{
+    margin-left: 30%;
+}
