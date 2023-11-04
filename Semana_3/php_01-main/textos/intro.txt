@@ -1,0 +1,11 @@
+﻿El curso de Tecnologías y Sistemas WEB II, esta dirigido a los estudiantes del VI nivel de carrera en su tramo de Diplomado.
+
+Este curso es de 4 créditos y corresponde a 5 horas lectivas, pero el estudiante se compromete a por lo menos repasar los conceptos en 8 horas adicionales a las clases regulares.
+
+El horario de este curso quedo distribuido de la siguiente forma:
+
+Las clases presenciales seran:
+<ul>
+  <item><strong>Viernes de 17:00 a 22:00</strong></item>
+</ul>
+

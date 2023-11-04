@@ -1,0 +1,55 @@
+﻿.cuerpo{
+	background-image:url('../images/cielo.jpg');
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	background-size:cover;
+}
+
+.marcador{
+	margin-top:30%;
+	width:400px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.actVolar1{
+	position:absolute;
+	-webkit-animation: volar2 2s linear 0s infinite;	
+}
+
+.actVolar2{
+	position:absolute;
+	-webkit-animation: volar2 3s linear 0s infinite ;
+}
+
+.actVolar3{
+	position:absolute;
+	-webkit-animation: volar3 1s linear 0s infinite ;
+}
+
+@-webkit-keyframes volar1{
+	0%{ top:25px; left:1920px; transform:rotate(0deg);}
+	25%{ top:75px; left:1400px; transform:rotate(0deg);}
+	50%{ top:47px; left:900px; transform:rotate(0deg);}
+	75%{ top:65px; left:500px; transform:rotate(0deg);}
+	100%{ top:15px; left:0px; transform:rotate(0deg);}
+}
+
+@-webkit-keyframes volar2{
+	0%{ top:50px; left:1920px; transform:rotate(0deg);}
+	25%{ top:125px; left:1400px; transform:rotate(0deg);}
+	50%{ top:52px; left:900px; transform:rotate(0deg);}
+	75%{ top:90px; left:500px; transform:rotate(0deg);}
+	100%{ top:40px; left:0px; transform:rotate(0deg);}
+}
+
+
+@-webkit-keyframes volar3{
+	0%{ top:100px; left:1920px; transform:rotate(0deg);}
+	25%{ top:175px; left:1400px; transform:rotate(0deg);}
+	50%{ top:102px; left:900px; transform:rotate(0deg);}
+	75%{ top:140px; left:500px; transform:rotate(0deg);}
+	100%{ top:80px; left:0px; transform:rotate(0deg);}
+}
+
+

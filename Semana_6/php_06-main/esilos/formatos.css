@@ -1,0 +1,11 @@
+﻿td.titulo{
+	color:black;
+	font-weight:bold;
+	background-color:lightblue;
+	width: 90px;
+}
+
+td.campo{
+	color:black;
+	background-color:white;
+}

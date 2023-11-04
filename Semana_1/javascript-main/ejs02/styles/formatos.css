@@ -1,0 +1,11 @@
+label{
+    background-color: rgb(249, 162, 31);
+    border: 1px black solid;
+    display: inline-block;
+    padding: 1px;
+    width: 85px;
+}
+
+input{
+    background-color: rgb(250, 249, 193);
+}

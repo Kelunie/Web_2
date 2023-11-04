@@ -1,0 +1,1111 @@
+================================================================================================
+Institucion..: Universidad Técnica Nacional
+Sede.........: Del Pacífico
+Carrera......: Tecnologías de Información
+Curso........: ITI-613 - Tecnologías y Sistema Web II
+Periodo......: 1-2023
+Documento....: mvc_PHP.txt
+Objetivos....: Demostración de un proyecto PHP con el paradigma del modelo vista controlador.
+Profesor.....: Jorge Ruiz (york)
+Estudiante...: Caleb Rodriguez Cordero
+================================================================================================	
+	
+Paso 01 - Crear la carpeta del sitio y su estructura
+
+	mvcPHP
+	  - app
+		- config
+		- controllers
+		- helpers
+		- libraries
+		- models
+		- views					
+	  - public
+		- css
+		- img
+		- javascript
+		
+	Navegar en el sitio	
+
+		
+Paso 02 - Crear archivo raiz/public/.htaccess
+	
+	Escribir 
+	
+		Options -Indexes
+	
+	Salvar y probar sitio
+	
+	
+Paso 03 - Crear archivo raiz/.htaccess
+
+	Escribir
+	
+		RewriteEngine On
+
+		RewriteRule ^$ public/ [L]
+		RewriteRule (.*) public/$1 [L]
+		
+	Salvar
+
+
+Paso 04 - Modificar archivo raiz/public/.htaccess
+
+	Reemplazar texto y dejar como sigue
+	
+		Options -Multiviews
+		RewriteEngine On
+
+		Options -Indexes
+
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-l
+		RewriteRule ^(.+)$ index.php?page=$1 [L,QSA]
+
+	Salvar y probar sitio
+	
+	
+Paso 05 - Crear archivo raiz/public/index.php
+
+	Escribir
+	
+        <?php
+            echo 'Página principal';
+        ?>
+	
+    Salvar y probar sitio
+    
+    
+Paso 06 - Crear archivo raiz/app/libraries/Core.php 
+
+	Escribir
+	
+	<?php
+		class Core{
+			//declare properties
+			protected $currentController = 'Pages';
+			protected $currentMethod = 'index';
+			protected $params = [];
+			
+			//declare class constructor
+			public function __construct(){
+				$url = $this->getUrl();
+				
+				//$url[0] is a controller
+				if(isset($url[0])){
+					if(file_exists('../app/controllers/'.ucwords($url[0]).'.php')){
+						//set the new controller
+						$this->currentController = ucwords($url[0]);
+
+						//unset first array position
+						unset($url[0]);
+					}
+				}
+				
+				//call the require controller
+				require_once('../app/controllers/' . $this->currentController . '.php');
+				$this->currentController = new $this->currentController;
+				
+				//evaluate method if exists
+				if(isset($url[1])){
+					if(method_exists($this->currentController, $url[1])){
+						$this->currentMethod = $url[1];
+						
+						//unset second array position
+						unset($url[1]);
+					}
+				}
+				
+				//get parameters
+				$this->params = $url ? array_values($url) : [];
+				
+				//callback params
+				call_user_func_array([$this->currentController, 
+									  $this->currentMethod], 
+									  $this->params);
+				
+			}//end constructor method
+			
+			//create function gerURL
+			//if wrong access try to use $_GET[ 'url' ]
+			public function getUrl(){
+				if(isset($_GET['page'])){
+					$url = rtrim($_GET['page'], '/');
+					
+					//allows to filter variables as number or string
+					$url = filter_var($url, FILTER_SANITIZE_URL);
+					
+					//chop variable into an array
+					$url = explode('/',$url);
+					
+					return $url;                
+				}//end if
+			}//end method
+			
+		}//end class
+	?>
+	
+	Salvar
+    
+
+Paso 07 - Crear archivo raiz/app/libraries/Controller.php 
+
+	Escribir
+	
+		<?php
+			class Controller{					
+				
+				//load the model from file
+				public function model( $model ) {
+					require_once( '../app/models/' . $model . '.php' );
+
+					//instance a new model
+					return new $model();
+				}
+				
+				//load the view from file
+				public function view($view, $data = []){
+					if(file_exists('../app/views/' . $view . '.php')){
+						require_once('../app/views/' . $view . '.php');
+					}else{
+						die("View does not exists...!");
+					}
+				}
+					
+			}
+		?>
+	
+	Salvar
+	
+    
+Paso 08 - Crear archivo raiz/app/controllers/Pages.php 
+
+    Esribir 
+	
+		<?php 
+			class Pages extends Controller {
+					
+				public function index(){
+					$this->view('pages/index');
+				}
+			}
+		?>
+		
+    Salvar 
+
+
+Paso 09- Crear carpeta raiz/app/views/pages
+
+
+Paso 10 - Crear archivo raiz/app/views/pages/index.php
+	
+	Esribir 
+	
+		<?php
+            echo 'Página principal desde la vista';
+        ?>
+	
+    Salvar
+	
+	
+Paso 11 - Crear archivo raiz/app/require.php
+
+	Escribir
+	
+		<?php
+			//require libraries
+			require_once('libraries/Core.php');
+			require_once('libraries/Controller.php');
+			
+			//create core instance
+			$init = new Core();
+		?>
+		
+	Salvar
+	
+
+Paso 12 - Modificar archivo raiz/public/index.php
+
+	Escribir
+	
+        <?php
+            // echo 'Página principal'; <!-- eliminar esta línea -->
+			require_once('../app/require.php');
+        ?>
+	
+    Salvar y probar sitio	
+
+
+Paso 13 - Crear archivo raiz/app/views/pages/about.php
+	
+	Esribir 
+	
+		<?php
+            echo '<h3>Acerca de......!</h3>';
+        ?>
+	
+    Salvar
+
+
+Paso 14 - Modificar archivo raiz/app/controllers/Pages.php 
+
+    Agregar esta función después de index() 
+	
+		public function about(){            
+            $this->view('pages/about');
+        }		
+		
+    Salvar y probar sitio
+	
+	
+================================================================
+Construyendo la capa de base de datos
+================================================================
+
+Paso 15 - Crear la base de datos ejemplo MySQL
+
+	create database prueba;
+	
+	use prueba
+	
+	create table usuarios(
+		id tinyint unsigned not null auto_increment,
+		nombre varchar(45)  not null,
+		contrasena varchar(80) not null,
+		primary key (id)
+	)engine=innodb default charset=utf8 collate=utf8_bin;
+	
+	insert into usuarios(nombre,contrasena) values('Merlina',md5('Tomasa'));
+	insert into usuarios(nombre,contrasena) values('Morticia',md5('Cleopatra'));
+	insert into usuarios(nombre,contrasena) values('Homero',md5('Zelda'));
+	
+
+Paso 16 - Crear archivo raiz/app/config/config.php 
+
+	Recuerde ajustar las variables de acuerdo a su entorno de trabajo,
+	tanto a nivel de Base de Datos, como de las carptetas de almacenamiento.
+
+    Escribir 
+	
+		<?php
+			//database params in constant
+			define('db_Servidor' , '10.236.2.140');
+			define('db_Basedato' , 'prueba');
+			define('db_Usuario'  , 'root');
+			define('db_Contra'   , 'adm2K21$');
+			
+			//absolut address
+			define('appRoot',dirname(dirname(__FILE__)));
+
+			//relative addres
+			define('urlRoot','http://<ip address>/<local directory>/<project name>');
+
+			//relative address
+			define('siteName','Ejemplo de MVC con PHP');
+		?>
+		
+    Salvar
+	
+	
+Paso 17 - Crear archivo raiz/app/libraries/Database.php
+
+	Escribir
+	
+		<?php
+			class Database{
+				//declare private properties
+				private $host = db_Servidor;
+				private $name = db_Basedato;
+				private $user = db_Usuario;
+				private $pass = db_Contra;
+				
+				//create local dababase object
+				private $coman;
+				private $conex;
+				private $error;
+				
+				//create default constructor
+				public function __construct(){
+					//create string conecction
+					$auxConex = 'mysql:host=' . $this->host . ';dbname=' . $this->name;
+					
+					//create connection properties into array
+					$opciones = array(PDO::ATTR_PERSISTENT => true,
+									  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+					
+					//try to crete live connection or retrive error connection
+					try{
+						$this->conex = new PDO($auxConex, $this->user, $this->pass, $opciones);
+					}catch(PDOException $e){
+						$this->error = $e->getMessage();
+						echo $this->error;
+					}            
+				}
+				
+				//create SQL instruction
+				public function query($auxSql){
+					$this->coman = $this->conex->prepare($auxSql); 
+				}
+				
+				//create bind between SQL sentence and required params 
+				public function bind($parameter, $value, $type = null){
+					//identifying param type
+					switch(is_null($type)){
+						case is_int($value):
+							$type = PDO::PARAM_INT;
+							break;
+						case is_bool($value):
+							$type = PDO::PARAM_BOOL;
+							break;
+						case is_null($value):
+							$type = PDO::PARAM_NULL;
+							break; 
+						default:
+							$type = PDO::PARAM_STR;
+					}
+					
+					//binds internal SQL param with external param
+					$this->coman->bindValue($parameter, $value, $type);
+				}
+				
+				
+				//execute SQL instruction
+				public function execute(){
+					return $this->coman->execute();
+				}
+				
+				//retrieves a dataset
+				public function resultSet(){
+					$this->execute();
+					return $this->coman->fetchAll(PDO::FETCH_OBJ);
+				}
+				
+				//retrieves a single datarow
+				public function singleRow(){
+					$this->execute();
+					return $this->coman->fetch(PDO::FETCH_OBJ);
+				}
+
+				//recoups the number of rows retrieved with SQL sentence
+				public function rowCount(){
+					$this->execute();
+					return $this->coman->rowCount();
+				}
+			}
+		?>
+	
+	Salvar
+
+
+Paso 18 - Modificar el archivo raiz/app/require.php
+
+	Agregar las siguiente librerías
+	
+		require_once('libraries/Database.php');
+		require_once('config/config.php');
+			
+	Salvar
+
+
+Paso 19 - Crear archivo raiz/app/models/User.php
+
+	Escribir
+	
+		<?php
+			class User{
+				private $db;
+				
+				//create database object
+				public function __construct(){
+					$this->db = new Database;
+				}
+				
+				//retrive all user data
+				public function getUsers(){
+					$this->db->query('select * from usuarios');
+					$regis = $this->db->resultSet();
+					return $regis;
+				}
+			}
+		?>
+			
+	Salvar
+	
+
+Paso 20 - Modificar archivo raiz/app/controllers/Pages.php 
+
+    Agregar esta función al inicio de la clase 
+	
+		public function __construct(){
+            $this->userModel = $this->model('User');
+        }
+		
+	Modificar function index() 
+
+		public function index(){
+			$user = $this->userModel->getUsers(); 
+			
+            $data = ['title' => 'Página principal',
+					 'name'  => 'Jorge Ruiz',
+					 'users' => $user];
+            
+            $this->view('pages/index', $data);
+        }		
+		
+    Salvar
+
+
+Paso 21 - Modificar archivo raiz/app/views/pages/index.php 
+
+    Modificar contenido php por 
+
+		echo '<h2>'.$data['title'].'</h2>';  
+		echo '<h3>Hecho por...: '.$data['name'].'</h3>'; 
+    
+		echo 'Raiz =>' . appRoot;
+
+		var_dump($data['users']);
+		echo '<br>';
+
+
+		foreach($data['users'] as $usuario){		
+			echo 'ID: ' . $usuario->id . '<br>';
+			echo 'Nombre: ' . $usuario->nombre . '<br>';
+			echo 'Contraseña: ' . $usuario->contrasena . '<br>';
+			echo '---------------------------------------------------------------<br><br>';
+		}
+		
+    Salvar y probar sitio
+	
+
+================================================================
+Construyendo la interfase visual
+================================================================
+
+Paso 22 - Crear archivo raiz/public/css/estilo_01.css
+
+	Escribir
+	
+		body{	
+			color: #011D42;
+			
+			font-family: 'Newsreader', serif;
+			
+			padding-top:5px;
+			padding-left:25px;
+			padding-right:25px;
+		}
+
+		.centrar_login{
+			width: 50%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.div_pi{
+			float: left;
+			font-size: 13px;
+			text-align: left;	
+		}
+
+		.div_pc{
+			border-left: 1px rgb(66, 66, 66) solid;
+			border-right: 1px rgb(66, 66, 66) solid;
+			float: left;
+			font-size: 13px;
+			font-weight: bold;
+			text-align: center;	
+		}
+
+		.div_pd{
+			float: left;
+			font-size: 10px;
+			text-align: right;	
+		}
+
+		.letra_menu{
+			font-weight: bold;
+		}
+
+		.linea_sep{
+			margin-top: 36px;
+		}
+	
+	Salvar
+	
+	
+Paso 23 - Crear carpeta raiz/app/views/includes
+
+	
+Paso 24 - Crear archivo raiz/app/views/includes/enca.php
+
+	Escribir
+	
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+		<!-- Control environmet web application -->
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta value="no-cache, no-store, must-revalidate" name="no-chache">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+		<!-- Font awesome decoration -->
+		<script src="https://kit.fontawesome.com/2c7bfef965.js" crossorigin="anonymous"></script>
+
+		<!-- Use external font -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Newsreader&display=swap" rel="stylesheet">
+
+
+		<!-- Custom decoration -->
+		<link rel="stylesheet" href="<?php echo urlRoot; ?>/public/css/estilo_01.css">
+	
+	Salvar
+
+
+Paso 25 - Crear archivo raiz/app/views/includes/menu.php
+
+	Escribir
+	
+		<nav class="navbar navbar-expand-lg letra_menu navbar-light bg-light">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="<?php echo urlRoot; ?>/pages/index">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<?php echo urlRoot; ?>/pages/about">Acerca de..</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">???</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Salir</a>
+					</li>            
+				</ul>
+			</div>
+		</nav>
+	
+	Salvar
+	
+
+Paso 26 - Crear archivo raiz/app/views/includes/pie.php
+
+	Escribir
+	
+		<hr>
+		<div class="col-4 div_pi">
+			<strong>Ubicados: </strong>En el aula....donde mas.<br/>
+			<strong>eMail:    </strong> <a href="mailto:moaddams@gmail.com?subject=Solicito información">moaddams@gmail.com</a><br />
+			<strong>Teléfono: </strong>26 60 70 00
+		</div>
+		<div class="col-4 div_pc">
+			Carrera de Tecnologías de Información<br/>
+			Curso de Tecnologías y Sistemas Web II<br/>
+			Desarrollado completamente a mano.
+		</div>
+		<div class="col-4 div_pd">
+			<a href="https://www.facebook.com/"><i class="fa fa-2x fa-facebook"></i></a>
+			<br>
+			<a href="https://twitter.com/"><i class="fa fa-2x fa-twitter"></i></a>
+			<br>
+			<a href="https://www.instagram.com/"><i class="fab fa-2x fa-instagram"></i></a>
+		</div>
+
+		<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+	
+	Salvar
+	
+
+Paso 27 - Modificar archivo raiz/app/views/pages/index.php
+
+	Eliminar contenido dejar en blanco
+	
+	Escribir
+	
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<?php
+			   require_once(appRoot . '/views/includes/enca.php');
+			?>
+			<title><?php echo siteName; ?></title>
+		</head>
+		<body class="container">
+			<header class="col-12">
+				<?php
+					require_once(appRoot . '/views/includes/menu.php');
+				?>        
+			</header>
+			<main class="col-12 linea_sep">
+				<?php
+					echo '<h3>'.$data['title'].'</h3>';
+				?>
+			</main>
+			<footer class="col-12 linea_sep">
+				<?php
+					require_once(appRoot . '/views/includes/pie.php');
+				?>
+			</footer>
+		</body>
+		</html>
+
+	Salvar
+	
+	
+Paso 28 - Modificar archivo raiz/app/views/pages/about.php
+
+	Eliminar contenido dejar en blanco
+	
+	Escribir
+	
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<?php
+			   require_once(appRoot . '/views/includes/enca.php');
+			?>
+			<title><?php echo siteName; ?></title>
+		</head>
+		<body class="container">
+			<header class="col-12">
+				<?php
+					require_once(appRoot . '/views/includes/menu.php');
+				?>        
+			</header>
+			<main class="col-12 linea_sep">
+				<h3>Acerca de.....!</h3>				
+			</main>
+			<footer class="col-12 linea_sep">
+				<?php
+					require_once(appRoot . '/views/includes/pie.php');
+				?>
+			</footer>
+		</body>
+		</html>
+	
+	Salvar y probar sitio
+
+
+================================================================
+Actualizando el soporte para los usuarios
+================================================================
+
+Paso 29 - Modificar archivo raiz/app/models/User.php
+
+	Agregar despues de la función getUsers()
+	
+		//retrieve an user data, loging function
+        public function login($data){
+            //create retrieve sentence
+            $this->db->query('select * from usuarios where nombre = :nomb');
+            
+            //bind sentence with variable
+            $this->db->bind(':nomb',$data['usuario']);
+            
+            //retrieve a single datarow
+            $tupla = $this->db->singleRow();
+            
+            //update local variable with contrasena field from single row 
+            $contra = $tupla->contrasena;        
+            
+            //validate passwords (retrieved pass with param pass)
+            if(password_verify($data['contra'], $contra)){
+                return $tupla;    
+            }else{
+                return false;
+            }
+        }
+        
+        // register new user function
+        public function register($data){
+            //create insert sentence
+            $this->db->query('insert into usuarios(nombre,contrasena)values(:nomb,:cont)');
+            
+            //bind sentence with variable
+            $this->db->bind(':nomb',$data['usuario']);
+            $this->db->bind(':cont',$data['contra']);
+            
+            //execute SQL sentence
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }                            
+        }// end register user function
+
+	Salvar
+	
+
+Paso 30 - Crear archivo raiz/app/controllers/Users.php
+
+	Escribir
+	
+		<?php
+			class Users extends Controller {
+				public function __construct(){
+					$this->userModel = $this->model('User');
+				}
+
+				//validates user
+				public function login(){
+					$data = [
+						'usuario'   => '',
+						'contra'    => '', 
+						'userError' => '',
+						'passError' => ''
+					];
+					
+					//create [POST] proccess 
+					if($_SERVER['REQUEST_METHOD']== 'POST'){
+						$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+						$data = [                    
+							'usuario'    => trim($_POST['txtUsua']),
+							'contra'     => trim($_POST['txtContra']),                    
+							'userError'  => '',
+							'passError'  => ''                
+						];  
+						
+						//validate username data
+						if(empty($data['usuario'])){
+							$data['userError'] = 'El nombre del usuario es obligatorio';
+						}
+						
+						//validate password data
+						if(empty($data['contra'])){
+							$data['passError'] = 'La contraseña es obligatoria';
+						}
+						
+						//validate not error found
+						if((empty($data['userError'])) && (empty($data['passError']))){
+							//retrieve data user
+							$user = $this->userModel->login($data);
+							
+							//register new user
+							if($user){
+								$this->createSession($user);                        
+							}else{
+								$data['passError'] = 'Los datos de ingreso son incorrectos. Favor verificar';
+							}    
+						}
+					}//end post declaration           
+					
+					$this->view('users/login',$data);
+				}
+				
+				//register a new user
+				public function register(){
+					$data = [                
+						'usuario'    => '',
+						'contra'     => '',
+						'recontra'   => '',
+						'userError'  => '',
+						'passError'  => '',
+						'passError2' => ''
+						
+					];
+					
+					//create [POST] proccess 
+					if($_SERVER['REQUEST_METHOD']== 'POST'){
+						$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+						$data = [                    
+							'usuario'    => trim($_POST['txtUsua']),
+							'contra'     => trim($_POST['txtContra']),
+							'recontra'   => trim($_POST['txtContra2']),
+							'userError'  => '',
+							'passError'  => '',
+							'passError2' => ''
+						
+						];  
+						
+						//crete validate patterns						
+						$validaNombre = '/^[a-zA-Z]*$/';
+						$validaContra = '/^[a-zA-Z0-9]*$/';
+						
+						//validate username data
+						if(empty($data['usuario'])){
+							$data['userError'] = 'El nombre del usuario es obligatorio';
+						}elseif(!preg_match($validaNombre, $data['usuario'])){
+							$data['userError'] = 'El nombre de usuario solo puede contener letras';
+						}
+						
+						//validate password data
+						if(empty($data['contra'])){
+							$data['passError'] = 'La contraseña es obligatoria';
+						}elseif(strlen($data['contra']) < 8){
+							$data['passError'] = 'La contraseña debe tener al menos 8 caracteres';
+						}elseif(!preg_match($validaContra, $data['contra'])){
+							$data['passError'] = 'La contraseña debe tener al menos un número';
+						}
+						
+						//validate confirm password data 
+						if(empty($data['recontra'])){
+							$data['passError2'] = 'La contraseña de confirmacion es obligatoria';
+						}elseif(strlen($data['recontra']) < 8){
+							$data['passError2'] = 'La contraseña de confirmacion debe tener al menos 8 caracteres';
+						}elseif(!preg_match($validaContra, $data['recontra'])){
+							$data['passError2'] = 'La contraseña de confirmacion debe tener al menos un número';
+						}elseif($data['contra'] != $data['recontra']){
+							$data['passError2'] = 'Las contraseñas no coinciden, favor confirmar sus datos';
+						}
+										
+						//validate not error found
+						if((empty($data['userError'])) && (empty($data['passError'])) && (empty($data['passError2']))){
+							//hash password
+							$data['contra'] = password_hash($data['contra'],PASSWORD_DEFAULT);
+							
+							//register new user
+							if($this->userModel->register($data)){
+								header('location: ' . urlRoot . '/users/login');
+							}else{
+								die('Algo salío mal...!');
+							}                    
+						}
+					}//end post method
+								
+					$this->view('users/register',$data);
+					
+				}//end register function
+				
+				public function createSession($user){
+					session_start();
+					$_SESSION['autenticado'] = 'Si';
+					$_SESSION['usuario'] = $user->nombre;
+					header('location: ' . urlRoot . '/pages/index');
+				}
+				 
+			}
+
+		?>
+
+	Salvar
+	
+
+Paso 31 - Crear carpeta raiz/app/views/users
+
+
+Paso 32 - Crear archivo raiz/app/views/users/register.php
+
+	Escribir
+	
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<?php
+			   require_once(appRoot . '/views/includes/enca.php');
+			?>
+			<title><?php echo siteName; ?></title>
+		</head>
+		<body class="container">
+			<header class="col-12">
+				<?php
+					require_once(appRoot . '/views/includes/menu.php');
+				?>        
+			</header>
+			<main class="col-12 linea_sep">        
+				<div class="col-5">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Registro de nuevo usuario</h4>
+						</div>
+						<div class="card-body">
+							<form action="<?php echo urlRoot; ?>/users/register" method="post">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td align="right"><strong>Usuario:</strong></td>
+											<td><input type="Text" name="txtUsua" size="20" maxlength="15" required></td>
+											<span class="invalidFeedback">
+												<?php echo $data['userError']; ?>
+											</span>
+										</tr>
+										<tr>
+											<td align="right"><strong>Contraseña:</strong></td>
+											<td><input type="password" name="txtContra" size="20" maxlength="15" required></td>
+											<span class="invalidFeedback">
+												<?php echo $data['passError']; ?>
+											</span>
+										</tr>
+										<tr>
+											<td align="right"><strong>Repita clave:</strong></td>
+											<td><input type="password" name="txtContra2" size="20" maxlength="15" required></td>
+											<span class="invalidFeedback">
+												<?php echo $data['passError2']; ?>
+											</span>
+										</tr>
+										<tr>
+											<td colspan="2" align="center"><input type="submit" value="Aceptar" class="btn btn-primary"></td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+				
+			</main>
+			<footer class="col-12 linea_sep">
+				<?php
+					require_once(appRoot . '/views/includes/pie.php');
+				?>
+			</footer>
+		</body>
+		</html>
+
+	Salvar
+
+
+Paso 33 - Crear archivo raiz/app/views/users/login.php
+
+	Escribir
+	
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<?php
+			   require_once(appRoot . '/views/includes/enca.php');
+			?>
+			<title><?php echo siteName; ?></title>
+		</head>
+		<body class="container">
+			<header class="col-12">
+				<?php
+					require_once(appRoot . '/views/includes/menu.php');
+				?>        
+			</header>
+			<main class="col-12 linea_sep">        
+				<div class="col-5">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Autentificación de usuarios</h4>
+						</div>
+						<div class="card-body">
+							<form action="<?php echo urlRoot; ?>/users/login" method="post">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td align="right"><strong>Usuario:</strong></td>
+											<td><input type="Text" name="txtUsua" size="20" maxlength="15" required></td>
+											<span class="invalidFeedback">
+												<?php echo $data['userError']; ?>
+											</span>
+										</tr>
+										<tr>
+											<td align="right"><strong>Contraseña:</strong></td>
+											<td><input type="password" name="txtContra" size="20" maxlength="15" required></td>
+											<span class="invalidFeedback">
+												<?php echo $data['passError']; ?>
+											</span>
+										</tr>
+										<tr>
+											<td colspan="2" align="center"><input type="submit" value="Aceptar" class="btn btn-primary"></td>
+										</tr>
+									</tbody>
+								</table>						
+								<a href="<?php echo urlRoot; ?>/users/register">Registrar usuario</a>
+							</form>
+						</div>
+					</div>
+				</div>
+			</main>
+			<footer class="col-12 linea_sep">
+				<?php
+					require_once(appRoot . '/views/includes/pie.php');
+				?>
+			</footer>
+		</body>
+		</html>
+	
+	Salvar y probar
+
+
+Paso 34 - Crear archivo raiz/app/helpers/session_helper.php
+
+	Escribir
+	
+		<?php
+			//open session 
+			session_start();
+			
+			//validates if variable of session is setted
+			function isLoggedIn(){
+				if(isset($_SESSION['usuario'])){
+					return true;
+				}else{
+					return false;
+				}
+			}   
+		?>
+	
+	Salvar
+
+
+Paso 35 - Modificar archivo raiz/app/controllers/Users.php
+
+	Eliminar session_start(); de la función createSession()
+	
+	Agregar despues de createSession()
+	
+		public function logout(){
+            unset($_SESSION['autenticado']);
+            unset($_SESSION['usuario']);
+            header('location: ' . urlRoot . '/pages/index');
+        }
+
+	Salvar
+
+
+Paso 36 - Modificar archivo raiz/app/require.php
+
+	Agregar en la lista de librerías
+	
+		require_once('helpers/session_helper.php');
+		
+	Salvar
+
+
+Paso 37 - Modificar archivo raiz/app/views/includes/menu.php
+
+	Modificar la línea de acceso a Salir y quitar enlace
+	
+	Agregar en la antigua línea de salir el siguiente código
+	
+		<?php
+            if(isLoggedIn()){
+                echo '<a class="nav-link" href="'. urlRoot .'/users/logout">Salir</a>';
+            }else{
+                echo '<a class="nav-link" href="'. urlRoot .'/users/login">Ingresar</a>';
+            }
+        ?>
+	
+	Salir y probar
+	
+	
+Paso 38 - Modificar archivo raiz/app/views/pages/index.php	
+
+	Agregar en el segmento de php (main)
+	
+		if(isLoggedIn()){
+            echo "Usted es: " . $_SESSION['usuario'];
+        }else{
+            echo "Por favor autentiquese ante nosotros...";
+        }
+	
+	Salva y probar	
+	
+
+Paso 39 - Ser feliz
+
+	Y U P I ...!
+	

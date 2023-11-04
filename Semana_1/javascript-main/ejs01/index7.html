@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/planti_01.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	
+	<link href="formatos/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="formatos/estilo_01.css" rel="stylesheet" type="text/css">
+	<link href="formatos/font/awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+	
+	<!-- InstanceBeginEditable name="Codigo" -->	
+	<script type="text/javascript" >
+        //Aqui va la matriz
+        var matri = [["-","H","A","C","H","E","-","-","E","-"],
+                     ["-","-","C","-","-","D","-","L","E","-"],
+                     ["-","-","O","-","-","R","E","-","T","-"],
+                     ["B","O","U","S","S","O","L","E","R","-"],
+                     ["-","-","T","-","P","C","A","M","A","H"],
+                     ["U","A","E","T","N","A","M","-","C","-"],
+                     ["-","-","A","-","-","-","P","-","-","-"],
+                     ["-","-","U","E","T","N","E","T","-","-"]];
+		
+		var signi = ["Sirve para amarrar cosas, utilizada por los alpinistas para trepar o bajar hasta y desde sitios.",
+                     "Permite cortar y picar alimentos, es utilizado como arma de defensa y ataque.",
+                     "Sirve para dormir a una distancia del suelo, suele estar atada a dos postes o árboles",
+                     "Artificio utilizado para generar luz.",
+                     "Permite ubicar los puntos cardinales.",
+					 "Especie de toldo que por lo general brinda abrigo en las noches a los campistas.",
+					 "Dibujo impreso en papel que señala elementos de una zona.",
+					 "Instrumento que permite cortar árboles y picar leña.",
+					 "Cocina portátil de un solo quemador alimentado por gas.",
+					 "Nombre genérico utilizado para las prendas que nos protegen de los elementos naturales"];
+
+        function impri(){
+			//Procesa el cuadro del crucigrama
+            var salida = "<table class='tabla'><caption><h3>CAMPING DANS LA FORET</h3></caption>";
+            for(var i = 0; i < matri.length; i++){
+                salida = salida.concat("<tr>");
+                for(var j = 0; j < matri[i].length; j++){
+                    if(matri[i][j] != "-"){
+                        salida = salida.concat("<td><input class='inputcentrado' name='txt_f"+ i +"_c"+ j +"'  oninput='ponletra(this,"+i+","+j+")' type='text' maxlength='1' size='2'></td>");
+                    }else{
+                        salida = salida.concat("<td class='negrito'>&nbsp;</td>");
+                    }
+                }
+                salida = salida.concat("</tr>");
+            }
+            salida = salida.concat("</table>");
+			
+			//Procesa el significado del crucigrama
+			var pistas = "<ol>";
+            for(var i = 0; i < signi.length; i++){
+				pistas = pistas.concat("<li>"+signi[i]+"</li>");	
+			}
+			pistas = pistas.concat("</ol>");
+			
+			//actualiza los objetos visuales en el html
+			document.getElementById("imagen").innerHTML = "<img src='imagenes/cruci/camping.gif' alt=''>";
+            document.getElementById("datos").innerHTML = salida;
+			document.getElementById("info").innerHTML = pistas;
+			document.getElementById("control").innerHTML = '<input type="button" name="name" value="Resolver Crucigrama" onClick="resolver()">	'
+        }
+		
+		function resolver(){
+			//Procesa el cuadro del crucigrama para presentar la solucion
+            var salida = "<table class='tabla'><caption><h3>CAMPING DANS LA FORET</h3></caption>";
+            for(var i = 0; i < matri.length; i++){
+                salida = salida.concat("<tr>");
+                for(var j = 0; j < matri[i].length; j++){
+                    if(matri[i][j] != "-"){
+                        salida = salida.concat("<td><input class='inputcentrado' name='txt_f"+ i +"_c"+ j +"' type='text' value='"+matri[i][j]+"' maxlength='1' size='2' disabled></td>");
+                    }else{
+                        salida = salida.concat("<td class='negrito'>&nbsp;</td>");
+                    }
+                }
+                salida = salida.concat("</tr>");
+            }
+            salida = salida.concat("</table>");
+			
+			//Procesa el significado del crucigrama
+			var pistas = "<ol>";
+            for(var i = 0; i < signi.length; i++){
+				pistas = pistas.concat("<li>"+signi[i]+"</li>");	
+			}
+			pistas = pistas.concat("</ol>");
+			
+			//actualiza los objetos visuales en el html
+			document.getElementById("imagen").innerHTML = "<img src='imagenes/cruci/camping.gif' alt=''>";
+            document.getElementById("datos").innerHTML = salida;
+			document.getElementById("info").innerHTML = pistas;
+        }
+
+		//Imprime el valor y posisción de los input text
+        function ponletra(val, fil, col){
+            alert("El valor es: "+ val.value +" ubicado en fila " + fil + " columna " + col);
+        }
+    </script>	
+	<!-- InstanceEndEditable -->		
+					
+</head>
+<body class="container" >
+	<header class="row">
+		<div class="col-lg-12">
+        	<div class="col-lg-6">
+            	<img src="imagenes/encabe.png" width="100%" alt="logo">
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+		<div class="col-lg-12 linea_sep">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1">
+                            <span class="sr-only">Botón de navegación</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+						<a class="navbar-brand" href="#">miSitio</a>
+					</div>
+					<div class="collapse navbar-collapse" id="defaultNavbar1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="index.html">Inicio</a></li>
+							<li><a href="index2.html">Dialogos</a></li>
+							<li><a href="index3.html">Carrusel</a></li>
+							<li><a href="index4.html">Selecciones</a></li>
+							<li><a href="index5.html">Formularios</a></li>
+							<li><a href="index6.html">Cookies</a></li>
+							<li><a href="index7.html">Crucigrama</a></li>
+							<li><a href="index8.html">Aviones</a></li>
+							<li><a href="index9.html">Parallax</a></li>
+						</ul>
+					</div>
+				</div>	
+			</nav>
+		</div>		
+	</header>
+	
+	<main class="row">
+	<!-- InstanceBeginEditable name="Contenido" -->
+		<h1>Crucigrama</h1>
+  		<input type="button" class="btn-primary" value="Presiona aquí" onClick="impri()">
+		<br><br>
+   		<div class="row">
+   			<div class="col-lg-4">
+   				<div id="imagen"></div>   				
+   			</div>
+   			<div class="col-lg-8">
+   				<div id="datos"></div>		
+   			</div>
+   		</div>
+   		<div class="row">
+   			<div class="col-lg-offset-4"></div>
+   			<div class="col-lg-8">
+   				<p>
+   					<div id="info"></div>		
+   				</p>
+   			</div>
+   		</div>
+   		<div class="row">
+   			<div id="control"></div>
+   		</div>
+   		   		    	    	
+		
+	<!-- InstanceEndEditable -->
+	</main>
+	
+	<footer class="row pie">
+		<div class="div_pi">
+                <strong>Ubicados: </strong>En el aula....donde mas.<br/>
+                <strong>eMail:    </strong> <a href="mailto:jruiz@utn.ac.cr?subject=Solicito información">jruiz@utn.ac.cr</a><br />
+                <strong>Teléfono: </strong>85 42 89 18
+            </div>
+            <div class="div_pc">
+                Carrera de Diseño Gráfico<br/>
+                Curso de Diseño y Publicación de Sitios Web <br/>
+                Desarrollado completamente a mano.
+            </div>
+            <div class="div_pd">
+				<a href="https://www.facebook.com/"><i class="fa fa-3x fa-tasks"></i></a>
+				<br>
+				<a href="https://twitter.com/"><i class="fa fa-2x fa-twitter"></i></a>
+			</div>
+	</footer>
+	
+	<!-- jQuery necesario para los efectos de bootstrap --> 
+    <script src="formatos/bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="formatos/bootstrap/js/bootstrap.js"></script>		
+</body>
+<!-- InstanceEnd --></html>

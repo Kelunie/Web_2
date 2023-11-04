@@ -1,0 +1,2 @@
+Lab_3/Employees.sql filter=lfs diff=lfs merge=lfs -text
+Lab_3/Employees.rar filter=lfs diff=lfs merge=lfs -text
