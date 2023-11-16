@@ -1,0 +1,40 @@
+
+http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/signup
+{
+    "nombre": "Caleb",
+    "apellido": "Rodriguez Cordero",
+    "email": "crodriguezco@est.utn.ac.cr",
+    "contra": "123456789"
+}
+
+consultado por token
+metodo Get
+url: http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/5E2F8B21/me
+
+consultado por login
+email & contra
+metodo Get
+URL: http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/login/crodriguezco@est.utn.ac.cr/123456789
+
+post tareas
+http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/5E2F8B21/task
+{
+    "tarea": "dar receso a los estudiantes",
+}
+
+get tareas
+GET
+http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/5E2F8B21/task
+
+put tareas
+http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/5E2F8B21/task/task
+{
+    "id":1,
+    "tarea": "dar receso a los estudiantes",
+    "estado":"R"
+}
+delete tareas
+http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/5E2F8B21/task/task
+{
+    "id":1
+}

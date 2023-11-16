@@ -2,7 +2,7 @@
 if(isset($_POST['ocAceptar'])){
     //error_reporting(0);
 
-    $url = 'http://localhost/2023/php_07/php_07_a/index.php/login/'.$_POST['txtEma'].'/'.$_POST['txtContra'];
+    $url = 'http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/login/'.$_POST['txtEma'].'/'.$_POST['txtContra'];
 
     $curl = curl_init($url);
 
@@ -13,7 +13,6 @@ if(isset($_POST['ocAceptar'])){
 
     $result = curl_exec($curl);
     $valores = json_decode($result,true);
-
     echo '<strong>Token:</strong> '. $valores['data']['token']. "<br>";
 
     session_start();

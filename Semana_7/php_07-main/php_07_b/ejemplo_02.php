@@ -7,7 +7,7 @@ if(isset($_POST['ocAceptar'])){
                    'email'     => $_POST['txtEma'],
                    'contra'    => $_POST['txtContra']);
 
-    $url = 'http://localhost/2023/php_07/php_07_a/index.php/signup';
+    $url = 'http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/signup';
 
     $curl = curl_init($url);
 
@@ -27,7 +27,8 @@ if(isset($_POST['ocAceptar'])){
     echo '<strong>Token:</strong> '.     $valores['data']['token']. "<br>";
     echo '<strong>Usuario:</strong> '.   $valores['data']['nombre'].  "<br>";
     echo '<strong>eMail:</strong> '.     $valores['data']['email']. "<br>";
-    echo '<strong>Contraseña:</strong> '.$valores['data']['contra']."<br>";
+    echo '<strong>Contraseña 1:</strong> ' . $valores['data']['clave_h'] . "<br>";
+    echo '<strong>Contraseña 2:</strong> ' . $valores['data']['clave_o'] . "<br>";
 
     session_start();
     $_SESSION['token'] = $valores['data']['token'];

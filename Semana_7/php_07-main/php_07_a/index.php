@@ -68,7 +68,7 @@
 		$response["status"]=$status;
 		$response["status_message"]=$status_message;
 		$response["data"]=$data;
-		$response["author"]="york";
+		$response["author"]="Kelunie";
 
 		$json_response=json_encode($response);
 		echo $json_response;

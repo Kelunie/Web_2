@@ -1,9 +1,9 @@
 <?php
     //parametros de conexion (opcionales)
-	$servidor  = "10.90.29.126";
+	$servidor  = "127.0.0.1";
     $basedatos = "xtreme";
     $usuario   = "root";
-    $contra    = "parda99*";
+    $contra    = "culep1711";
 
     //suprime advertencias
     error_reporting(0);

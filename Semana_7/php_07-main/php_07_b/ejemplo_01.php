@@ -7,16 +7,16 @@
 <body>
 
 <?php
-
+    /*
     error_reporting(0);
 
     //insertando usuario
-    $datos = array('nombre'    => 'Morticia5',
-                   'apellidos' => 'Addams Frug',
-                   'email'     => 'morticia5@est.utn.ac.cr',
-                   'contra'    => 'caramia5');
+    $datos = array('nombre'    => 'Joshua',
+                   'apellidos' => 'Badilla Artavia',
+                   'email'     => 'jobadillaar@est.utn.ac.cr',
+                   'contra'    => 'casa123');
 
-    $url = 'http://localhost:8080/2023/php_07/php_07_a/index.php/signup';
+    $url = 'http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/signup';
 
     $options = array('http' => array('header' => "Content-Type:application/json",
                                      'header' => "Accept:application/json",
@@ -36,18 +36,20 @@
     echo '<strong>Usuario:</strong> ' . $valores['data']['nombre'] . "<br>";
     echo '<strong>Apellidos:</strong> ' . $valores['data']['apellidos'] . "<br>";
     echo '<strong>eMail:</strong> ' . $valores['data']['email'] . "<br>";
-    echo '<strong>Contraseña:</strong> ' . $valores['data']['clave_h'] . "<br>";
+    echo '<strong>Contraseña 1:</strong> ' . $valores['data']['clave_h'] . "<br>";
+    echo '<strong>Contraseña 2:</strong> ' . $valores['data']['clave_o'] . "<br>";
+    */
     
 ?>
 
 
 <?php
-/*
+
     //error_reporting(0);
 
     //Consultando mensaje
     $datos = '';
-    $url = 'http://localhost:8080/2023/php_07/php_07_a/index.php/443F0314/task';
+    $url = 'http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/5E2F8B21/task';
 
     $options = array('http' => array('header'  => "Content-Type:application/json",
                                      'header'  => "Accept:application/json",
@@ -81,7 +83,7 @@
     foreach($valores['data']['tareas'] as $tarea){
         echo $tarea['id']."....".$tarea['descripcion']."....".$tarea['registrada']."....".$tarea['estado']."<br>";
     }
-    */
+
 ?>
 </body>
 </html>
