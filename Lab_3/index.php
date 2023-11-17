@@ -35,6 +35,25 @@
                         </form>
                     </div>
                 </div>
+                <div class="card mt-3">
+    <div class="card-header">
+        <h2 class="text-center">Reporte XML</h2>
+    </div>
+    <div class="card-body">
+    <form action="impXML.php" method="get">
+        <div class="form-group">
+            <label for="departmentCode">Código del Departamento (0 para todos):</label>
+            <input type="text" class="form-control" id="departmentCode" name="department_code" required>
+        </div>
+        <div class="form-group">
+            <label for="employeeId">ID del Empleado:</label>
+            <input type="text" class="form-control" id="employeeId" name="employee_id" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" name="action" value="view">Ver Reporte XML</button>
+        <button type="submit" class="btn btn-success btn-block" name="action" value="download">Descargar Reporte XML</button>
+    </form>
+    </div>
+</div>
             </div>
         </div>
     </div>
