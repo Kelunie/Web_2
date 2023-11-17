@@ -57,8 +57,8 @@
         $this->Cell(40, 6, 'Title', 1, 0, 'C', true);
         $this->Cell(30, 6, 'From Date', 1, 0, 'C', true);
         $this->Cell(30, 6, 'To Date', 1, 0, 'C', true);
-        $this->Cell(30, 6, 'From Date 1', 1, 0, 'C', true);
-        $this->Cell(30, 6, 'To Date 2', 1, 0, 'C', true);
+        $this->Cell(30, 6, 'From Date ', 1, 0, 'C', true);
+        $this->Cell(30, 6, 'To Date ', 1, 0, 'C', true);
         $this->Cell(30, 6, 'Salary', 1, 1, 'C', true);
 
         $this->Ln(0);
@@ -80,7 +80,7 @@
         $this->Cell(30, 6, $ToDate2, 1);
         $this->Cell(30, 6, $Salary, 1);
 
-        $this->Ln(1);
+        $this->Ln(4);
     }
 
     public function reporteActual($Title, $FromDate, $ToDate1, $FromDate1, $ToDate2,
@@ -146,98 +146,100 @@
  //Hablitia conexion con el motor de MySql.
  include_once("codigos/conexion.inc");
 
- // Definimos y ejecutamos la linea de consulta sobre la BD
- $id = 10005;
- // conseguimos la informacion del empleado
+ // verificamos que el id exista en la base de datos
+ if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    // conseguimos la informacion del empleado
  $sql = "
-    select * from employees where emp_no = $id;
-        ";
+ select * from employees where emp_no = $id;
+     ";
 $infoEmpleado = mysqli_query($conex, $sql) or die(mysqli_error($conex));
 $infoEmpleado = mysqli_fetch_array($infoEmpleado);
 $pdf->Cell(20,1,utf8_decode('Employee                     ').$infoEmpleado['emp_no'].(' - ').$infoEmpleado['first_name'].' '.$infoEmpleado['last_name'].
-('                                                 Hire date               ').$infoEmpleado['hire_date'],0,1,'',false);
+('                                            Hire date            ').$infoEmpleado['hire_date'],0,1,'',false);
 $pdf->addSeparatorLine(63, 126, 130);
 
 
 $sql = "
-    SELECT
-        'Staff' AS Title,
-        DATE_FORMAT(e.hire_date, '%Y-%m-%d') AS FromDate,
-        '1996-09-12' AS ToDate1,
-        DATE_FORMAT(de.from_date, '%Y-%m-%d') AS FromDate1,
-        DATE_FORMAT(de.to_date, '%Y-%m-%d') AS ToDate2,
-        s.salary AS Salary
-    FROM
-        employees e
-    JOIN
-        dept_emp de ON e.emp_no = de.emp_no AND de.to_date < CURDATE()
-    JOIN
-        salaries s ON e.emp_no = s.emp_no AND s.to_date < CURDATE()
-    WHERE
-        e.emp_no = $id
-    ORDER BY
-        de.from_date;
+ SELECT
+     'Staff' AS Title,
+     DATE_FORMAT(e.hire_date, '%Y-%m-%d') AS FromDate,
+     '1996-09-12' AS ToDate1,
+     DATE_FORMAT(de.from_date, '%Y-%m-%d') AS FromDate1,
+     DATE_FORMAT(de.to_date, '%Y-%m-%d') AS ToDate2,
+     s.salary AS Salary
+ FROM
+     employees e
+ JOIN
+     dept_emp de ON e.emp_no = de.emp_no AND de.to_date < CURDATE()
+ JOIN
+     salaries s ON e.emp_no = s.emp_no AND s.to_date < CURDATE()
+ WHERE
+     e.emp_no = $id
+ ORDER BY
+     de.from_date;
 ";
 $Regis = mysqli_query($conex, $sql) or die(mysqli_error($conex));
 
 $isFirstRow = true; // Variable de control para identificar la primera fila
 $pdf->headerTable(); // Llamada a la funcion para generar el encabezado de la tabla
 if (mysqli_num_rows($Regis) > 0) {
-    while ($row = mysqli_fetch_assoc($Regis)) {
-        if ($isFirstRow) {
-            $pdf->reportePasado(
-                $row['Title'],
-                $row['FromDate'],
-                $row['ToDate1'],
-                $row['FromDate1'],
-                $row['ToDate2'],
-                $row['Salary']
-            );
-            $isFirstRow = false; // Cambiar el estado después de la primera fila
-        } else {
-            $pdf->reportePasado(
-                '', // Opcional: puedes dejar en blanco o poner un valor predeterminado
-                '',
-                '',
-                $row['FromDate1'],
-                $row['ToDate2'],
-                $row['Salary']
-            );
-        }
-    }
+ while ($row = mysqli_fetch_assoc($Regis)) {
+     if ($isFirstRow) {
+         $pdf->reportePasado(
+             $row['Title'],
+             $row['FromDate'],
+             $row['ToDate1'],
+             $row['FromDate1'],
+             $row['ToDate2'],
+             $row['Salary']
+         );
+         $isFirstRow = false; // Cambiar el estado después de la primera fila
+     } else {
+         $pdf->reportePasado(
+             '', // Opcional: puedes dejar en blanco o poner un valor predeterminado
+             '',
+             '',
+             $row['FromDate1'],
+             $row['ToDate2'],
+             $row['Salary']
+         );
+     }
+ }
 } else{
-    $pdf->reportePasado(
-        '',
-        '',
-        '',
-        '',
-        '',
-        ''
-    );
+ $pdf->reportePasado(
+     '',
+     '',
+     '',
+     '',
+     '',
+     ''
+ );
 }
 // celda en blanco
 $pdf->Cell(20,3,utf8_decode(''),0,1,'',false);
 $pdf->addSeparatorLine(63, 126, 130);
 
 $sql2 = "
-    SELECT
-        'Staff' AS Title,
-        DATE_FORMAT(e.hire_date, '%Y-%m-%d') AS FromDate,
-        IFNULL(NULLIF(DATE_FORMAT(de.to_date, '%Y-%m-%d'), '9999-01-01'), 'Current position') AS ToDate1,
-        DATE_FORMAT(de.from_date, '%Y-%m-%d') AS FromDate1,
-        IFNULL(NULLIF(DATE_FORMAT(de.to_date, '%Y-%m-%d'), '9999-01-01'), 'Today') AS ToDate2,
-        YEAR(de.from_date) AS FromYear,
-        s.salary AS Salary
-    FROM
-        employees e
-    LEFT JOIN
-        dept_emp de ON e.emp_no = de.emp_no
-    LEFT JOIN
-        salaries s ON e.emp_no = s.emp_no
-    WHERE
-        e.emp_no = $id AND (de.to_date >= CURDATE() OR de.to_date IS NULL) AND (s.to_date >= CURDATE() OR s.to_date IS NULL)
-    ORDER BY
-        de.from_date;
+ SELECT
+     'Staff' AS Title,
+     DATE_FORMAT(e.hire_date, '%Y-%m-%d') AS FromDate,
+     IFNULL(NULLIF(DATE_FORMAT(de.to_date, '%Y-%m-%d'), '9999-01-01'), 'Current position') AS ToDate1,
+     DATE_FORMAT(de.from_date, '%Y-%m-%d') AS FromDate1,
+     IFNULL(NULLIF(DATE_FORMAT(de.to_date, '%Y-%m-%d'), '9999-01-01'), 'Today') AS ToDate2,
+     YEAR(de.from_date) AS FromYear,
+     s.salary AS Salary
+ FROM
+     employees e
+ LEFT JOIN
+     dept_emp de ON e.emp_no = de.emp_no
+ LEFT JOIN
+     salaries s ON e.emp_no = s.emp_no
+ WHERE
+     e.emp_no = $id AND (de.to_date >= CURDATE() OR de.to_date IS NULL) AND (s.to_date >= CURDATE() OR s.to_date IS NULL)
+ ORDER BY
+     de.from_date;
 ";
 
 $Regis2 = mysqli_query($conex, $sql2) or die(mysqli_error($conex));
@@ -245,26 +247,26 @@ $Regis2 = mysqli_query($conex, $sql2) or die(mysqli_error($conex));
 $isFirstRow2 = true; // Variable de control para identificar la primera fila
 $pdf->headerTable(); // Llamada a la funcion para generar el encabezado de la tabla
 while ($row = mysqli_fetch_assoc($Regis2)) {
-    if ($isFirstRow) {
-        $pdf->reporteActual(
-            $row['Title'],
-            $row['FromDate'],
-            $row['ToDate1'],
-            $row['FromDate1'],
-            $row['ToDate2'],
-            $row['Salary']
-        );
-        $isFirstRow2 = false; // Cambiar el estado después de la primera fila
-    } else {
-        $pdf->reporteActual(
-            '', // Opcional: puedes dejar en blanco o poner un valor predeterminado
-            '',
-            '',
-            $row['FromDate1'],
-            $row['ToDate2'],
-            $row['Salary']
-        );
-    }
+ if ($isFirstRow) {
+     $pdf->reporteActual(
+         $row['Title'],
+         $row['FromDate'],
+         $row['ToDate1'],
+         $row['FromDate1'],
+         $row['ToDate2'],
+         $row['Salary']
+     );
+     $isFirstRow2 = false; // Cambiar el estado después de la primera fila
+ } else {
+     $pdf->reporteActual(
+         '', // Opcional: puedes dejar en blanco o poner un valor predeterminado
+         '',
+         '',
+         $row['FromDate1'],
+         $row['ToDate2'],
+         $row['Salary']
+     );
+ }
 }
 
 // Obtén el ancho total de la página
@@ -281,6 +283,10 @@ $pdf->SetTextColor(63, 126, 130);
 // Agrega el texto centrado
 $pdf->Cell(8, 12, utf8_decode('                                ---====(End Summary)====---'), 0, 1, 'C', false);
 
+}else{
+    echo "No se encontro el empleado";
+}
+ 
 
 
 //Finaliza la construccion del pdf y lo envia al navegador
