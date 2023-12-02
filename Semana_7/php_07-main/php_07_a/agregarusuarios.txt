@@ -9,7 +9,7 @@ http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/signup
 
 consultado por token
 metodo Get
-url: http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/5E2F8B21/me
+url: http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/1E386FAF/me
 
 consultado por login
 email & contra
@@ -17,7 +17,7 @@ metodo Get
 URL: http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/login/crodriguezco@est.utn.ac.cr/123456789
 
 post tareas
-http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/5E2F8B21/task
+http://localhost/web_2/Semana_7/php_07-main/php_07_a/index.php/1E386FAF/task
 {
     "tarea": "dar receso a los estudiantes",
 }

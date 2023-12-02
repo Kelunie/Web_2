@@ -71,18 +71,20 @@ DELIMITER ;
 -- procedimiento de almacenado de usuarios
 DELIMITER //
 CREATE PROCEDURE ins_usuario(
-    IN nom VARCHAR(50),
-    IN apels VARCHAR(100),
-    IN fecha_nacimiento DATE,
-    IN correopersonal VARCHAR(255),
-    IN tipo_usuario INT,
-    IN clave VARCHAR(255)
+    IN p_id INT,
+    IN p_nom VARCHAR(50),
+    IN p_apels VARCHAR(100),
+    IN p_fecha_nacimiento DATE,
+    IN p_correopersonal VARCHAR(255),
+    IN p_tipo_usuario INT,
+    IN p_clave VARCHAR(255)
 )
 BEGIN
     INSERT INTO usuarios(ID, contraseña, nombre, apellidos, fecha_nacimiento, correopersonal, tipo_usuario)
-    VALUES (NULL, MD5(clave), nom, apels, fecha_nacimiento, correopersonal, tipo_usuario);
+    VALUES (p_id, MD5(p_clave), p_nom, p_apels, p_fecha_nacimiento, p_correopersonal, p_tipo_usuario);
 END //
 DELIMITER ;
+
 
 -- procedimiento de almacenado de empleados
 DELIMITER //
@@ -135,3 +137,5 @@ BEGIN
     VALUES (NULL, tracking_number, codigo_escala, NOW());
 END //
 DELIMITER ;
+
+select * from usuarios;
