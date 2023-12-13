@@ -22,7 +22,7 @@ if(isset($_POST['ocAceptar'])){
 
     $result = curl_exec($curl);
     // Agrega esta línea para ver la respuesta completa
-    echo '<strong>Response:</strong> ' . $result . "<br>";
+    /*echo '<strong>Response:</strong> ' . $result . "<br>";
     $valores = json_decode($result, true);
 
     echo '<h3>Resultado de la transacción</h3>';
@@ -43,7 +43,21 @@ if(isset($_POST['ocAceptar'])){
         echo '<strong>Fecha Nacimiento:</strong> ' . $valores['data']['fecha_nacimiento'] . "<br>";
         echo '<strong>Email:</strong> ' . $valores['data']['correopersonal'] . "<br>";
         echo '<strong>Tipo Usuario:</strong> ' . $valores['data']['tipo_usuario'] . "<br>";
-    }
+    }*/
+    // veremos si se creo bien con status_message
+    // sacaremos solo el mensaje de status_message
+    $val=json_decode($result,true);
+    $mensaje = $val['status_message'];
+    if (isset($val['status_message']) && $val['status_message'] == 'Data was created') {
+        echo '<script type="text/javascript">
+            alert("Cuenta creada");
+        </script>';
+    } else {
+        echo '<script type="text/javascript">
+            alert("Error al crear cuenta");
+        </script>';
+    }    
+    
 }
 ?>
 
@@ -89,14 +103,14 @@ if(isset($_POST['ocAceptar'])){
                 </tr>
                 <tr>
                     <td>Fecha Nacimiento</td>
-                    <td><input name="txtFechaNac" type="text" class="form-control" required></td>
+                    <td><input name="txtFechaNac" type="text" class="form-control" required placeholder="yyyy-mm-dd"></td>
                 </tr>
                 <tr>
                     <td>Email</td>
-                    <td><input name="txtEma" type="text" class="form-control" required></td>
+                    <td><input name="txtEma" type="text" class="form-control" required placeholder="example@example.ex"></td>
                 </tr>
             </table>
-            <input type="submit" value="Aceptar" name="ocAceptar" class="btn  btn_per">
+            <input type="submit" value="Crear Cuenta" name="ocAceptar" class="btn  btn_per">
         </form>
         </div>
     </div>

@@ -139,3 +139,4 @@ END //
 DELIMITER ;
 
 select * from usuarios;
+delete from usuarios where ID = 641258963;

@@ -27,3 +27,6 @@ h3 {
 .btn_per:hover{
     background-color: red;
 }
+.btn:hover{
+    background-color: red;
+}
