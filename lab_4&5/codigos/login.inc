@@ -6,8 +6,8 @@
 	$valores = json_decode($data,TRUE);
 
 	// Get data user from server.
-	$auxSql = "Select token, nombre, apellidos from usuarios where email = '".$request[1].
-	          "' and contra = md5('".$request[2]."')";
+	$auxSql = "Select * from usuarios where correopersonal = '".$request[1].
+	          "' and contraseña = md5('".$request[2]."')"; 
 
 	// Prepare query over user table
 	$regis = mysqli_query($conex, $auxSql);
@@ -19,14 +19,18 @@
 		$user = mysqli_fetch_array($regis);
 
 		/// Prepare data package like associative array
-		$usuario = array('token'=>$user['token'],
+		$usuario = array('ID'=>$user['ID'],
+						 'contraseña'=>$user['contraseña'],
 						 'nombre'=>$user['nombre'],
-						 'apellidos'=>$user['apellidos']);
+						 'apellidos'=>$user['apellidos'],
+						 'fecha_nacimiento'=>$user['fecha_nacimiento'],
+						 'correopersonal'=>$user['correopersonal'],
+						 'tipo_usuario'=>$user['tipo_usuario']);
 
 		// Release memory from data query
 		mysqli_free_result($regis);
 
         //display user data in json format and http request proccess successfully
-		deliver_response(200,"OK",$usuario);
+		deliver_response(200,"OK",$user);
 	}
 ?>

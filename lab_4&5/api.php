@@ -32,7 +32,7 @@
 			if(sizeof($request)==3){
 				if($request[0]=='login'){
 					// user authentication retrieves token
-					include_once("code/login.inc");
+					include_once("codigos/login.inc");
 				}
 			}else if(sizeof($request)==2){
 				if($request[1]=='me'){

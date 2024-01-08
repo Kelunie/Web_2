@@ -18,7 +18,7 @@ if(isset($_POST['ocAceptar'])){
     session_start();
     $_SESSION['token'] = $valores['data']['token'];
 }
-?>
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>

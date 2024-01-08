@@ -12,7 +12,7 @@
         <a class="navbar-item nav_per" href="signup.php">
             Registrarse
         </a>
-        <a class="navbar-item nav_per" href="login.php">
+        <a class="navbar-item nav_per" href="Loging.php">
             Iniciar Sesión
         </a>
         <a class="navbar-item nav_per" href="resenco.php">

@@ -11,7 +11,7 @@ if(isset($_POST['ocAceptar'])){
                    'correopersonal'=> $_POST['txtEma'],
                    'tipo_usuario'  => 1); // 1 = Usuario normal, 2 = Administrador
 
-    $url = 'http://localhost/Web_2/lab_5&6/api.php/signup';
+    $url = 'http://localhost/Web_2/lab_4&5/api.php/signup';
 
     $curl = curl_init($url);
 
